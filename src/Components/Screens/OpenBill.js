@@ -3,7 +3,19 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, ImageBackg
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
+import Pusher from 'pusher-js/react-native';
 
+Pusher.logToConsole = true; 
+
+var pusher = new Pusher('7a6218b4df87abcc1c7c', { 
+    cluster: 'us2', 
+    forceTLS: true 
+}); 
+
+var channel = pusher.subscribe('whoollie'); 
+channel.bind('my-event', function(data) { 
+    alert(JSON.stringify(data)); 
+});
 
 export default class Login extends Component {
     constructor(props) {
@@ -19,33 +31,17 @@ export default class Login extends Component {
     componentDidMount() {
         var self = this;
 
-        var test = '';
+        var test = [];
 
         // requisição HTTP usando axios
-        axios.get(`${GLOBALS.BASE_URL}/api/requests/current/order`)
+        axios.get(`${GLOBALS.BASE_URL}/api/requests/current/order/data/list`)
             .then(function (response) {
                 console.log(response.data);
                 
                 var temp = [];
                 response.data.forEach(element => {
                     
-                    test = element.idRequest;
-                    
-                    axios.get(`${GLOBALS.BASE_URL}/api/requests/products/${element.idRequest}`)
-                        .then(function (res) {
-                        
-                        console.log(test);
-
-                        var sub_temp = [];
-                        res.data.forEach(element => {
-                            
-                            console.log(element.desName)
-                            
-                        });
-                    })
-                    .catch(function (err) {
-                        console.log(err);
-                    });
+                    console.log(element);
                     
                 });
             })
@@ -86,7 +82,7 @@ const styles = StyleSheet.create({
         padding: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'red'
+        backgroundColor: 'darkgrey'
     }
 
 });

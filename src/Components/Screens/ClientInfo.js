@@ -3,7 +3,16 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, ImageBackg
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
+import Pusher from 'pusher-js/react-native';
 
+Pusher.logToConsole = true; 
+
+var pusher = new Pusher('7a6218b4df87abcc1c7c', { 
+    cluster: 'us2', 
+    forceTLS: true 
+}); 
+
+var channel = pusher.subscribe('whoollie'); 
 
 export default class Login extends Component {
 
@@ -29,6 +38,12 @@ export default class Login extends Component {
             })
                 .then(function (res) {
                     console.log(res.data);
+
+                    channel.bind(`close-order-id-${res.data.idOrder}`, function(data) { 
+                        console.log(`close-order-id-${res.data.idOrder}`)
+                        Actions.ClientInfo();           
+                                    
+                    });
 
                     self.setState({ name: '', isButtonPressed: false })
                     Actions.Home();

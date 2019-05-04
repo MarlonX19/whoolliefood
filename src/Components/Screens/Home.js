@@ -35,7 +35,7 @@ export default class Home extends Component {
                     <TouchableOpacity
                         onPress={() => Actions.OpenBill()}
                     >
-                        <Image style={styles.imgMenu} source={require('../imgs/bill.png')} />
+                        <Image style={styles.imgMenu} source={require('../imgs/purse.png')} />
                     </TouchableOpacity>
                 </View>
                 <View>
@@ -47,7 +47,7 @@ export default class Home extends Component {
                     <TouchableOpacity
                         onPress={() => false}
                     >
-                        <Image style={styles.imgMenu} source={require('../imgs/about.png')} />
+                        <Image style={styles.imgMenu} source={require('../imgs/question.png')} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
 
     imgMenu: {
         margin: 20,
-        width: 130,
-        height: 170
+        width: 120,
+        height: 120
     }
 
 })
