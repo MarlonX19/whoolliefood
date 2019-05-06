@@ -185,7 +185,7 @@ export default class Cart extends Component {
             return (
                 <View style={{ flex: 0.5, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#fff' }}>
                     <View style={styles.price}>
-                        <Text style={styles.textPrice}> R${ this._totalValue() }</Text>
+                        <Text style={styles.textPrice}> R${ this._totalValue() },00</Text>
                     </View>
                 
                 <TouchableWithoutFeedback
@@ -253,6 +253,7 @@ const styles = StyleSheet.create({
 
     textPrice: {
         fontSize: 21,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'green'
     }
 })

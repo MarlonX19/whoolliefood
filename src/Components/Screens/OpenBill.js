@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -22,8 +22,9 @@ export default class Login extends Component {
         super(props)
 
         this.state = {
-            name: '',
-            isButtonPressed: false
+            requests: [],
+            isButtonPressed: false,
+            color: 1
 
         }
     }
@@ -31,23 +32,33 @@ export default class Login extends Component {
     componentDidMount() {
         var self = this;
 
-        var test = [];
-
         // requisição HTTP usando axios
         axios.get(`${GLOBALS.BASE_URL}/api/requests/current/order/data/list`)
             .then(function (response) {
-                console.log(response.data);
-                
                 var temp = [];
-                response.data.forEach(element => {
-                    
-                    console.log(element);
-                    
-                });
+                console.log(response.data);
+               response.data.forEach(element => {
+                   temp.push(element)
+               });
+                console.log(temp);
+
+                self.setState({ requests: temp })
+               
             })
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    _totalValue() {
+        var temp = 0;
+
+        this.state.requests.forEach(element => {
+            temp = temp + parseInt(element.vlTotal);
+        });
+
+        return temp;
+
     }
 
 
@@ -56,10 +67,29 @@ export default class Login extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.orderedItems}>
+                    <FlatList
+                        data={this.state.requests}
+                        keyExtractor={(item) => item.idRequest}
+                        renderItem={({ item }) =>
+                            <View style={styles.items}>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Pedido nº {item.idRequest}</Text>
+                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Total: R$ {item.vlTotal}</Text>
+                                </View>
+                                <View style={{ flex: 1, flexDirection: 'row' }}>
+                                    <Text style={{ fontSize: 16, margin: 5 }}>{item.listProducts.map(index => index.desName)}</Text>
+                                </View>
+                            </View>
+
+                        }
+                    >
+
+
+                    </FlatList>
 
                 </View>
                 <View style={styles.totalPrice}>
-                    <Text>R$ 100,00</Text>
+                    <Text style={{ fontSize: 20, color: '#fff' }}>Total da conta R$ {this._totalValue()},00</Text>
                 </View>
             </View>
         )
@@ -73,7 +103,14 @@ const styles = StyleSheet.create({
     },
 
     orderedItems: {
-        flex: 9
+        flex: 9,
+        marginTop: 60
+    },
+
+    items: {
+        flex: 1,
+        flexDirection: 'column',
+        margin: 5
     },
 
     totalPrice: {
@@ -82,7 +119,7 @@ const styles = StyleSheet.create({
         padding: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'darkgrey'
+        backgroundColor: 'crimson'
     }
 
 });

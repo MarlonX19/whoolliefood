@@ -147,7 +147,7 @@ export default class Categories extends Component {
                     >
                         <Image style={{ width: 25, height: 25 }} source={require('../imgs/minus.png')} />
                     </TouchableWithoutFeedback>
-                        <Text style={{ fontSize: 31, fontWeight: 'bold', marginLeft: 25, marginRight: 25 }}>{this.state.qtdProduct}</Text>
+                        <Text style={{ fontSize: 31, fontWeight: 'bold', marginLeft: 25, marginRight: 25, color: 'green' }}>{this.state.qtdProduct}</Text>
                     <TouchableWithoutFeedback
                         onPress={() => this._countQuantity('plus')}
                     >
@@ -158,7 +158,7 @@ export default class Categories extends Component {
                 <View style={styles.child4}>
                     <View style={styles.addButton}>
                         <View style={styles.price}>
-                            <Text style={styles.textPrice}>R${this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct}</Text>
+                            <Text style={styles.textPrice}>R${this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct},00</Text>
                         </View>
                         {this._isButtonPressed()}
                     </View>
@@ -237,7 +237,8 @@ const styles = StyleSheet.create({
 
     textPrice: {
         fontSize: 21,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        color: 'green'
     }
 
 })
