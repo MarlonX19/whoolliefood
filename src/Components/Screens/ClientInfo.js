@@ -5,14 +5,12 @@ import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
 import Pusher from 'pusher-js/react-native';
 
-Pusher.logToConsole = true; 
+Pusher.logToConsole = true;
 
-var pusher = new Pusher('7a6218b4df87abcc1c7c', { 
-    cluster: 'us2', 
-    forceTLS: true 
-}); 
-
-var channel = pusher.subscribe('whoollie'); 
+var pusher = new Pusher('7a6218b4df87abcc1c7c', {
+    cluster: 'us2',
+    forceTLS: true
+});
 
 export default class Login extends Component {
 
@@ -39,10 +37,16 @@ export default class Login extends Component {
                 .then(function (res) {
                     console.log(res.data);
 
-                    channel.bind(`close-order-id-${res.data.idOrder}`, function(data) { 
-                        console.log(`close-order-id-${res.data.idOrder}`)
-                        Actions.ClientInfo();           
-                                    
+                    var channel = pusher.subscribe(`${res.data.desChannel}`);
+                    channel.bind(`close-order-id-${res.data.idOrder}`, function(data) {
+                        axios.post(`${GLOBALS.BASE_URL}/api/clear/order`)
+                        .then(function (response) {
+                            Actions.ClientInfo();
+                            console.log('order clearned');
+                        })
+                        .catch(function (response) {
+                            console.log('error clear order')
+                        })
                     });
 
                     self.setState({ name: '', isButtonPressed: false })

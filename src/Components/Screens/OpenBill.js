@@ -3,19 +3,6 @@ import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, ImageBackgr
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
-import Pusher from 'pusher-js/react-native';
-
-Pusher.logToConsole = true; 
-
-var pusher = new Pusher('7a6218b4df87abcc1c7c', { 
-    cluster: 'us2', 
-    forceTLS: true 
-}); 
-
-var channel = pusher.subscribe('whoollie'); 
-channel.bind('my-event', function(data) { 
-    alert(JSON.stringify(data)); 
-});
 
 export default class Login extends Component {
     constructor(props) {
@@ -35,15 +22,16 @@ export default class Login extends Component {
         // requisição HTTP usando axios
         axios.get(`${GLOBALS.BASE_URL}/api/requests/current/order/data/list`)
             .then(function (response) {
-                var temp = [];
                 console.log(response.data);
-               response.data.forEach(element => {
-                   temp.push(element)
-               });
-                console.log(temp);
+                
+                let requests = [];
 
-                self.setState({ requests: temp })
-               
+                response.data.forEach(element => {
+                    requests.push(element);
+                });
+
+                console.log(element);
+
             })
             .catch(function (error) {
                 console.log(error);
