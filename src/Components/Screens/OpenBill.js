@@ -22,15 +22,14 @@ export default class Login extends Component {
         // requisição HTTP usando axios
         axios.get(`${GLOBALS.BASE_URL}/api/requests/current/order/data/list`)
             .then(function (response) {
+                var temp = [];
                 console.log(response.data);
-                
-                let requests = [];
+               response.data.forEach(element => {
+                   temp.push(element)
+               });
+                console.log(temp);
 
-                response.data.forEach(element => {
-                    requests.push(element);
-                });
-
-                console.log(element);
+                self.setState({ requests: temp })
 
             })
             .catch(function (error) {
