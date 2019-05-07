@@ -48,6 +48,16 @@ export default class Login extends Component {
 
     }
 
+    _listing(items){
+        var tempo = '';
+
+        items.forEach(element => {
+            tempo = tempo + `\n ${element.desName}`
+        })
+
+        return tempo;
+
+    }
 
 
     render() {
@@ -63,15 +73,11 @@ export default class Login extends Component {
                                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Pedido nº {item.idRequest}</Text>
                                     <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Total: R$ {item.vlTotal}</Text>
                                 </View>
-                                <View style={{ flex: 1, flexDirection: 'row' }}>
-                                    <Text style={{ fontSize: 16, margin: 5 }}>{item.listProducts.map(index => index.desName)}</Text>
-                                </View>
+                                    <Text style={{ fontSize: 17 }}>{this._listing(item.listProducts)}</Text>
                             </View>
 
                         }
                     >
-
-
                     </FlatList>
 
                 </View>
