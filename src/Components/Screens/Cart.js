@@ -58,7 +58,7 @@ export default class Cart extends Component {
                     'Pedido feito com sucesso!',
                     'Basta aguardar :)',
                     [
-                        { text: 'Okay', onPress: () => Actions.Home() }
+                        { text: 'Ok', onPress: () => Actions.Home() }
                     ],
                     { cancelable: false }
                 )

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, FlatList, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -48,11 +48,12 @@ export default class Login extends Component {
 
     }
 
-    _listing(items){
+    _listing(items) {
         var tempo = '';
 
         items.forEach(element => {
-            tempo = tempo + `\n ${element.desName}`
+            tempo = tempo + `R$ ${element.vlUnity} ${element.desName} (${element.qtProduct}) \n`
+            console.log(element)
         })
 
         return tempo;
@@ -69,11 +70,20 @@ export default class Login extends Component {
                         keyExtractor={(item) => item.idRequest}
                         renderItem={({ item }) =>
                             <View style={styles.items}>
-                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Pedido nº {item.idRequest}</Text>
-                                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Total: R$ {item.vlTotal}</Text>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, backgroundColor: '#EFEBE9', padding: 5 }}>
+                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Pedido nº {item.idRequest}</Text>
+                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Total: R$ {item.vlTotal}</Text>
                                 </View>
-                                    <Text style={{ fontSize: 17 }}>{this._listing(item.listProducts)}</Text>
+                                
+                                <View style={{ backgroundColor: "#fff", padding: 5 }}>
+                                    <Text style={{ fontSize: 18 }}>{this._listing(item.listProducts)}</Text>
+                                </View>
+
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: '#EFEBE9' }}>
+                                    <Image style={{ width: 15, height: 15 }} source={require('../imgs/clock.png')} />
+                                    <Text style={{ margin: 5 }}>{item.dtRegister.substring(0, 16)}</Text>
+                                </View>
+
                             </View>
 
                         }
@@ -97,13 +107,16 @@ const styles = StyleSheet.create({
 
     orderedItems: {
         flex: 9,
-        marginTop: 60
+        marginTop: 55
     },
 
     items: {
         flex: 1,
         flexDirection: 'column',
-        margin: 5
+        margin: 5,
+        padding: 0,
+        borderWidth: 0.3,
+        borderRadius: 5
     },
 
     totalPrice: {
