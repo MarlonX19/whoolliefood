@@ -12,6 +12,7 @@ export default class Cart extends Component {
 
         this.state = {
             cartOptions: [],
+            desNote: '',
             isCartLoaded: false,
             isButtonPressed: false,
             totalValue: 0
@@ -47,7 +48,9 @@ export default class Cart extends Component {
         this.setState({ isButtonPressed: true })
 
         if(this.state.cartOptions.length > 0) {
-        axios.post(`${GLOBALS.BASE_URL}/api/request`)
+        axios.post(`${GLOBALS.BASE_URL}/api/request`, {
+            desNote: this.state.desNote
+        })
             .then(function (response) {
                 // handle success
                 self.setState({ isButtonPressed: false })
@@ -143,7 +146,7 @@ export default class Cart extends Component {
                                 </View>
 
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>R${item.qtTotal * item.vlUnity}</Text>
+                                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>R${parseFloat(item.qtTotal * item.vlUnity).toFixed(2)}</Text>
                                 </View>
 
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -158,11 +161,14 @@ export default class Cart extends Component {
                     >
                     </FlatList>
                     </View>
-                    <View style={{ height: 45, flexDirection: 'row', marginLeft: 30, marginRight: 30, borderWidth: 0.5, borderRadius: 10 }}>
+                    <View style={{ height: 80, flexDirection: 'row', margin: 15, borderWidth: 0.5, borderRadius: 10, flexWrap: 'wrap' }}>
                         <TextInput
-                        style={{ flex: 1 }}
-                        onChangeText={() => false}
-                        value={'Observações...'}
+                            style={{ flex: 1, paddingBottom: 45, paddingLeft: 5 }}
+                            multiline={true}
+                            numberOfLines={3}
+                            placeholder='Anote aqui suas observações'
+                            onChangeText={(text) => this.setState({ desNote: text })}
+                            maxLength={200}
                         />
                     </View>
                 </View>
@@ -197,7 +203,7 @@ export default class Cart extends Component {
             return (
                 <View style={{ flex: 0.5, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#fff' }}>
                     <View style={styles.price}>
-                        <Text style={styles.textPrice}> R${ this._totalValue() },00</Text>
+                        <Text style={styles.textPrice}> R${ parseFloat(this._totalValue()).toFixed(2) }</Text>
                     </View>
                 
                 <TouchableWithoutFeedback

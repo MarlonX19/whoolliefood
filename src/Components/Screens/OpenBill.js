@@ -60,6 +60,14 @@ export default class Login extends Component {
 
     }
 
+    _showObs(itemObs){
+        if(itemObs !== ''){
+            return `Obs: ${itemObs}`
+        } else {
+            return '';
+        }
+    }
+
 
     render() {
         return (
@@ -70,16 +78,17 @@ export default class Login extends Component {
                         keyExtractor={(item) => item.idRequest}
                         renderItem={({ item }) =>
                             <View style={styles.items}>
-                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, backgroundColor: '#EFEBE9', padding: 5 }}>
+                                <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, backgroundColor: '#F8F8F8', padding: 5 }}>
                                     <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Pedido nº {item.idRequest}</Text>
                                     <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Total: R$ {item.vlTotal}</Text>
                                 </View>
                                 
                                 <View style={{ backgroundColor: "#fff", padding: 5 }}>
                                     <Text style={{ fontSize: 18 }}>{this._listing(item.listProducts)}</Text>
+                                    <Text style={{ fontSize: 13, fontStyle: 'italic' }}>{this._showObs(item.desNote)}</Text>
                                 </View>
 
-                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: '#EFEBE9' }}>
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: '#F8F8F8' }}>
                                     <Image style={{ width: 15, height: 15 }} source={require('../imgs/clock.png')} />
                                     <Text style={{ margin: 5 }}>{item.dtRegister.substring(0, 16)}</Text>
                                 </View>
@@ -92,7 +101,7 @@ export default class Login extends Component {
 
                 </View>
                 <View style={styles.totalPrice}>
-                    <Text style={{ fontSize: 20, color: '#fff' }}>Total da conta R$ {this._totalValue()},00</Text>
+                    <Text style={{ fontSize: 18, color: 'black' }}>Total R$ { parseFloat(this._totalValue()).toFixed(2) }</Text>
                 </View>
             </View>
         )
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
         padding: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'crimson'
+        backgroundColor: '#fff'
     }
 
 });
