@@ -161,11 +161,11 @@ export default class Cart extends Component {
                     >
                     </FlatList>
                     </View>
-                    <View style={{ height: 80, flexDirection: 'row', margin: 15, borderWidth: 0.5, borderRadius: 10, flexWrap: 'wrap' }}>
+                    <View style={{ height: 80, flexDirection: 'row', margin: 15, borderWidth: 0.5, borderRadius: 10, flexWrap: 'wrap-reverse' }}>
                         <TextInput
-                            style={{ flex: 1, paddingBottom: 45, paddingLeft: 5 }}
+                            style={{ flex: 1, paddingLeft: 5, paddingBottom: 30 }}
                             multiline={true}
-                            numberOfLines={3}
+                            numberOfLines={10}
                             placeholder='Anote aqui suas observações'
                             onChangeText={(text) => this.setState({ desNote: text })}
                             maxLength={200}

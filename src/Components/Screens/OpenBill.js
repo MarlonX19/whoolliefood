@@ -11,7 +11,8 @@ export default class Login extends Component {
         this.state = {
             requests: [],
             isButtonPressed: false,
-            color: 1
+            color: 1,
+            hasRequests: false
 
         }
     }
@@ -28,8 +29,9 @@ export default class Login extends Component {
                    temp.push(element)
                });
                 console.log(temp);
-
-                self.setState({ requests: temp })
+                if(temp.length >= 1) {
+                    self.setState({ requests: temp, hasRequests: true })
+                } 
 
             })
             .catch(function (error) {
@@ -68,10 +70,10 @@ export default class Login extends Component {
         }
     }
 
-
-    render() {
-        return (
-            <View style={styles.container}>
+    _hasRequests(){
+        if(this.state.hasRequests){
+            return (
+                <View style={{ flex: 1 }}>
                 <View style={styles.orderedItems}>
                     <FlatList
                         data={this.state.requests}
@@ -103,6 +105,23 @@ export default class Login extends Component {
                 <View style={styles.totalPrice}>
                     <Text style={{ fontSize: 18, color: 'black' }}>Total R$ { parseFloat(this._totalValue()).toFixed(2) }</Text>
                 </View>
+            </View>
+            )
+        } else {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Image style={{ width: 150, height: 150 }} source={require('../imgs/hasRequests.png')} />
+                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Você não fez nenhum pedido ainda!</Text>
+                </View>
+            )
+        }
+    }
+
+
+    render() {
+        return (
+            <View style={styles.container}>
+                {this._hasRequests()}
             </View>
         )
     }

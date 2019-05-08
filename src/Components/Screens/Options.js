@@ -75,10 +75,12 @@ export default class Categories extends Component {
                             <TouchableOpacity
                                 onPress={() => Actions.ProductDescription({ idProduct: item.idProduct })}
                             >
-                                <View style={{ flex: 1, backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10, marginLeft: 4, marginRight: 4}}>
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', backgroundColor: 'aliceblue', marginTop: 15, borderRadius: 10 }}>
+                                    <View style={{ margin: 10 }}>
                                     <Text style={styles.itemName}>{item.desName}</Text>
-                                    <ImageBackground style={{ width: 160, height: 160, margin: 8 }}  blurRadius={1} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
+                                    <ImageBackground style={{ width: 160, height: 160, margin: 8 }}  source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
                                     </ImageBackground>
+                                    </View>
                                 </View>
                             </TouchableOpacity>}
                     >
@@ -119,7 +121,7 @@ const styles = StyleSheet.create({
     },
 
     itemName: {
-        fontSize: 17,
+        fontSize: 16,
         fontWeight: 'bold',
         color: 'midnightblue',
         alignSelf: 'center'
