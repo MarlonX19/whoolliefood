@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Modal, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, Modal, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Alert, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -13,7 +13,6 @@ export default class Cart extends Component {
         this.state = {
             cartOptions: [],
             isCartLoaded: false,
-            number: 1,
             isButtonPressed: false,
             totalValue: 0
 
@@ -126,34 +125,47 @@ export default class Cart extends Component {
     _isCartLoaded() {
         if (this.state.isCartLoaded) {
             return (
-                <FlatList
-                    data={this.state.cartOptions}
-                    keyExtractor={(item, index) => item.desName}
-                    renderItem={({ item }) =>
-                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, backgroundColor: this.state.number++ % 2 === 0 ? 'lightgray' : 'darkgray' }}>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 20 }}>{item.qtTotal} X</Text>
-                            </View>
+                <View style={{ flex: 1 }}>
+                    <View style={{ flex: 5 }}>
+                    <FlatList
+                        data={this.state.cartOptions}
+                        keyExtractor={(item, index) => item.desName}
+                        renderItem={({ item }) =>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, backgroundColor: '#fff' }}>
+                                <View style={{ flex: 0.4, justifyContent: 'center' }}>
+                                    <View style={{ width: 25, height: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 0.6 }}>
+                                        <Text style={{ color: 'green', fontSize: 18 }}>{item.qtTotal}</Text>
+                                    </View>
+                                </View>
 
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
-                                <Text style={{ fontSize: 20 }}>{item.desName}</Text>
-                            </View>
+                                <View style={{ flex: 1.5, justifyContent: 'center' }}>
+                                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{item.desName}</Text>
+                                </View>
 
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ fontSize: 20 }}>R${item.qtTotal * item.vlUnity}</Text>
-                            </View>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>R${item.qtTotal * item.vlUnity}</Text>
+                                </View>
 
-                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                <TouchableOpacity
-                                    onPress={() => this._removeItemFromCart(item.idProduct)}
-                                >
-                                    <Image style={{ width: 30, height: 30 }} source={require('../imgs/deleteIcon.png')} />
-                                </TouchableOpacity>
+                                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+                                    <TouchableOpacity
+                                        onPress={() => this._removeItemFromCart(item.idProduct)}
+                                    >
+                                        <Image style={{ width: 30, height: 30 }} source={require('../imgs/deleteIcon.png')} />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                        </View>
-                    }
-                >
-                </FlatList>
+                        }
+                    >
+                    </FlatList>
+                    </View>
+                    <View style={{ height: 45, flexDirection: 'row', marginLeft: 30, marginRight: 30, borderWidth: 0.5, borderRadius: 10 }}>
+                        <TextInput
+                        style={{ flex: 1 }}
+                        onChangeText={() => false}
+                        value={'Observações...'}
+                        />
+                    </View>
+                </View>
             );
         }
         else {
@@ -215,7 +227,7 @@ export default class Cart extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ebebe0',
+        backgroundColor: '#fff',
         justifyContent: 'center',
         
     },
@@ -235,7 +247,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3cb371',
         borderRadius: 10,
         flexDirection: 'row',
-        padding: 10
+        padding: 7
     },
 
     textButton: {
@@ -246,13 +258,13 @@ const styles = StyleSheet.create({
 
     price: {
         borderWidth: 0.5,
-        padding: 5,
+        padding: 7,
         borderRadius: 10,
         backgroundColor: '#fff'
     },
 
     textPrice: {
-        fontSize: 21,
+        fontSize: 20,
         fontWeight: 'bold',
         color: 'green'
     }

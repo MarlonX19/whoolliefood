@@ -57,7 +57,7 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'cornsilk',
+        backgroundColor: '#fff',
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',

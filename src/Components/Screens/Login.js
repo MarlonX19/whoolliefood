@@ -83,9 +83,6 @@ export default class Login extends Component {
         return (
             <ImageBackground source={require('../imgs/loginImage.jpg')} style={{width: '100%', height: '100%'}}>
             <View style={styles.container}>
-                <View style={styles.name}>
-                    <Text style={styles.textname}>Whoollie Food</Text>
-                </View>
                 <View style={styles.main}>
                     <TextInput
                         style={styles.textinput}
@@ -119,18 +116,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    },
-
-    name: {
-        flex: 1
-    },
-
-    textname: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        color: '#FFC72C',
-        alignSelf: 'center',
-        marginTop: 10
+        
     },
 
     textinput: {
@@ -146,7 +132,7 @@ const styles = StyleSheet.create({
     },
 
     main: {
-        flex: 3,
+        flex: 9,
         alignItems: 'center',
         justifyContent: 'center'
     },
