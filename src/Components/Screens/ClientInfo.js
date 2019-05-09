@@ -24,6 +24,7 @@ export default class Login extends Component {
         }
     }
 
+
     _sendClientInfo(clientName) {
         var self = this;
 

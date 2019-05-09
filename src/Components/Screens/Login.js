@@ -43,7 +43,8 @@ export default class Login extends Component {
                             console.log(res.response);
                         }) */
                     self.setState({ isButtonPressed: false })
-                    Actions.ClientInfo();
+                    Actions.ClientInfo()
+
                 } else { 
                     self.setState({ isButtonPressed: false })
                     Alert.alert('Usuário ou senha incorretos!')
