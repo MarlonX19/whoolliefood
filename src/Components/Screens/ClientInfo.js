@@ -24,6 +24,7 @@ export default class Login extends Component {
         }
     }
 
+
     _sendClientInfo(clientName) {
         var self = this;
 
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
+        
     },
 
     textinput: {

@@ -158,7 +158,7 @@ export default class Categories extends Component {
                 <View style={styles.child4}>
                     <View style={styles.addButton}>
                         <View style={styles.price}>
-                            <Text style={styles.textPrice}>R${this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct},00</Text>
+                            <Text style={styles.textPrice}>R${parseFloat(this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct).toFixed(2)}</Text>
                         </View>
                         {this._isButtonPressed()}
                     </View>
