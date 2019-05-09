@@ -19,6 +19,22 @@ export default class Login extends Component {
         }
     }
 
+    componentDidMount() {
+        // requisição HTTP usando axios
+        axios.get(`${GLOBALS.BASE_URL}/api/products`)
+            .then(function (response) {
+                
+                if (JSON.parse(response.data).hasOwnProperty('login')) 
+                    if (JSON.parse(response.data).login = 'false')
+                        Actions.ClientInfo();
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+
 
     _login(login, password) {
         var self = this;
