@@ -82,7 +82,7 @@ export default class Login extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('../imgs/loginImage.jpg')} style={{width: '100%', height: '100%'}}>
+            <ImageBackground source={require('../imgs/loginScreen.jpg')} style={{width: '100%', height: '100%'}}>
             <View style={styles.container}>
                 <View style={styles.main}>
                     <TextInput
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     },
 
     main: {
-        flex: 9,
+        flex: 19,
         alignItems: 'center',
         justifyContent: 'center'
     },
