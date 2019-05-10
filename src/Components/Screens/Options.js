@@ -75,10 +75,10 @@ export default class Categories extends Component {
                             <TouchableOpacity
                                 onPress={() => Actions.ProductDescription({ idProduct: item.idProduct })}
                             >
-                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 15, borderColor: 'gray', borderWidth: 0.4, marginRight: 5, marginLeft: 5, borderRadius: 10 }}>
-                                    <View style={{ margin: 10 }}>
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 15, borderColor: 'gray', borderWidth: 0.3, marginRight: 5, marginLeft: 5, borderRadius: 10 }}>
+                                    <View style={{ margin: 2 }}>
                                     <Text style={styles.itemName}>{item.desName}</Text>
-                                    <ImageBackground style={{ width: 160, height: 160, margin: 8 }}  source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }}>
+                                    <ImageBackground style={{ width: 160, height: 160, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }} defaultSource={require('../imgs/foodIcon.png')} >
                                     </ImageBackground>
                                     </View>
                                 </View>
