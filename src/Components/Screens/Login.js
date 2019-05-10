@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, Modal, View, TextInput, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -85,7 +85,7 @@ export default class Login extends Component {
                 <TouchableOpacity
                     onPress={() => this._login(this.state.login, this.state.password)}
                 >
-                    <View style={{ width: 250, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
+                    <View style={{ width: 285, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
                         <Text style={styles.button}>Entrar</Text>
 
                     </View>
@@ -101,19 +101,25 @@ export default class Login extends Component {
             <ImageBackground source={require('../imgs/loginScreen.jpg')} style={{width: '100%', height: '100%'}}>
             <View style={styles.container}>
                 <View style={styles.main}>
-                    <TextInput
-                        style={styles.textinput}
-                        onChangeText={text => this.setState({ login: text })}
-                        placeholder={'Login'}
-                        placeholderTextColor={'black'}
-                    />
-                    <TextInput
-                        style={styles.textinput}
-                        onChangeText={text => this.setState({ password: text })}
-                        placeholder={'Senha'}
-                        placeholderTextColor={'black'}
-                        secureTextEntry={true}
-                    />
+                        <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', margin: 2, padding: 3 }}>
+                            <Image style={{ width: 25, height: 25 }} source={require('../imgs/loginIcon.png')} />
+                            <TextInput
+                                style={styles.textinput}
+                                onChangeText={text => this.setState({ login: text })}
+                                placeholder={'Login'}
+                                placeholderTextColor={'gray'}
+                            />
+                        </View>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', margin: 2, padding: 3 }}>
+                            <Image style={{ width: 25, height: 25 }} source={require('../imgs/passwordIcon.jpg')} />
+                            <TextInput
+                                style={styles.textinput}
+                                onChangeText={text => this.setState({ password: text })}
+                                placeholder={'Senha'}
+                                placeholderTextColor={'gray'}
+                                secureTextEntry={true}
+                            />
+                        </View>
                    { this._isButtonPressed() }
                     
                 </View>
@@ -141,8 +147,6 @@ const styles = StyleSheet.create({
         margin: 2,
         height: 50,
         width: 250,
-        borderColor: 'gray',
-        borderWidth: 1,
         backgroundColor: '#f2f2f2',
         alignItems: 'center'
 
