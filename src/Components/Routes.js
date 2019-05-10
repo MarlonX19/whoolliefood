@@ -20,9 +20,9 @@ export default props => (
             <Scene key='Categories' direction='vertical' component={Categories} title="CATEGORIAS" hideNavBar={false} />
             <Scene key='ClientInfo' type= "reset" direction='vertical' component={ClientInfo} title="ABRIR COMANDA" hideNavBar={false} />
             <Scene key='Options' direction='vertical' component={Options} title="OPÇÕES" hideNavBar={false} />
-            <Scene key='ProductDescription' direction='vertical' component={ProductDescription} title="Descriçao" hideNavBar={false} />
-            <Scene key='Cart' direction='vertical' component={Cart} title="Carrinho" hideNavBar={false} />
-            <Scene key='OpenBill' direction='vertical' component={OpenBill} title="Conta aberta" hideNavBar={false} />
+            <Scene key='ProductDescription' direction='vertical' component={ProductDescription} title="DESCRIÇÃO" hideNavBar={false} />
+            <Scene key='Cart' direction='vertical' component={Cart} title="CARRINHO" hideNavBar={false} />
+            <Scene key='OpenBill' direction='vertical' component={OpenBill} title="COMANDA ABERTA" hideNavBar={false} />
         </Stack>
     </Router>
 )

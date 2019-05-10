@@ -24,6 +24,19 @@ export default class Login extends Component {
         }
     }
 
+    componentWillMount() {
+        // requisição HTTP usando axios
+
+        axios.post(`${GLOBALS.BASE_URL}/api/opened/order`)
+            .then(function (res) {
+
+                console.log(res.data)
+                
+                if (res.data.open == true) {
+                    Actions.Home();                    
+                }
+            });
+    }
 
     _sendClientInfo(clientName) {
         var self = this;

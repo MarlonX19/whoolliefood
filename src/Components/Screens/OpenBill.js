@@ -20,11 +20,10 @@ export default class Login extends Component {
     componentDidMount() {
         var self = this;
 
-        var test = [];
-
         // requisição HTTP usando axios
         axios.get(`${GLOBALS.BASE_URL}/api/requests/current/order/data/list`)
             .then(function (response) {
+                var temp = [];
                 console.log(response.data);
                response.data.forEach(element => {
                    temp.push(element)

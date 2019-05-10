@@ -19,14 +19,14 @@ export default class Login extends Component {
         }
     }
 
-    componentDidMount() {
+    componentWillMount() {
         // requisição HTTP usando axios
-        axios.get(`${GLOBALS.BASE_URL}/api/products`)
+        axios.get(`${GLOBALS.BASE_URL}/api/verify/login/device`)
             .then(function (response) {
-                
-                if (JSON.parse(response.data).hasOwnProperty('login')) 
-                    if (JSON.parse(response.data).login = 'false')
-                        Actions.ClientInfo();
+
+                if (response.data == true) {
+                    Actions.ClientInfo();                    
+                }
 
             })
             .catch(function (error) {
