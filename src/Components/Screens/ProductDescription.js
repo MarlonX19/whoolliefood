@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableWithoutFeedb
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
+import { convert } from '../../Config/Functions';
 
 export default class Categories extends Component {
 
@@ -133,7 +134,7 @@ export default class Categories extends Component {
                 <View style={styles.child2}>
                     {/* I needed to map the productInfo by its index and then point to the property I want */}
                     <Text style={styles.title}>{this.state.productInfo.map(index => index.desName)}</Text>
-                    <Text style={styles.title}>R${this.state.productInfo.map(index => index.vlUnity)}</Text>
+                    <Text style={styles.title}>{convert(parseFloat(this.state.productInfo.map(index => index.vlUnity)))}</Text>
                 </View>
 
                 <View style={styles.child3}>
@@ -158,7 +159,7 @@ export default class Categories extends Component {
                 <View style={styles.child4}>
                     <View style={styles.addButton}>
                         <View style={styles.price}>
-                            <Text style={styles.textPrice}>R${parseFloat(this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct).toFixed(2)}</Text>
+                            <Text style={styles.textPrice}>{convert(parseFloat(this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct))}</Text>
                         </View>
                         {this._isButtonPressed()}
                     </View>
@@ -236,6 +237,7 @@ const styles = StyleSheet.create({
     },
 
     textPrice: {
+        padding: 2.7,
         fontSize: 21,
         fontWeight: 'bold',
         color: 'green'

@@ -3,6 +3,7 @@ import { View, Modal, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedbac
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
+import { convert } from '../../Config/Functions';
 
 
 export default class Cart extends Component {
@@ -137,7 +138,7 @@ export default class Cart extends Component {
                             <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-start', padding: 5, backgroundColor: '#fff' }}>
                                 <View style={{ flex: 0.4, justifyContent: 'center' }}>
                                     <View style={{ width: 25, height: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 0.6 }}>
-                                        <Text style={{ color: 'green', fontSize: 18 }}>{item.qtTotal}</Text>
+                                        <Text style={{ color: 'green', fontSize: 18, fontWeight: 'bold' }}>{item.qtTotal}</Text>
                                     </View>
                                 </View>
 
@@ -146,7 +147,7 @@ export default class Cart extends Component {
                                 </View>
 
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>R${parseFloat(item.qtTotal * item.vlUnity).toFixed(2)}</Text>
+                                    <Text style={{ fontSize: 16, fontWeight: 'bold' }}>{convert(parseFloat(item.qtTotal * item.vlUnity))}</Text>
                                 </View>
 
                                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
@@ -203,7 +204,7 @@ export default class Cart extends Component {
             return (
                 <View style={{ flex: 0.5, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', backgroundColor: '#fff' }}>
                     <View style={styles.price}>
-                        <Text style={styles.textPrice}> R${ parseFloat(this._totalValue()).toFixed(2) }</Text>
+                        <Text style={styles.textPrice}> {convert(parseFloat(this._totalValue()))}</Text>
                     </View>
                 
                 <TouchableWithoutFeedback

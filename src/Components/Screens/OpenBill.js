@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, FlatList, Image, ImageBackground, Alert, Activi
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
+import { convert } from '../../Config/Functions';
 
 export default class Login extends Component {
     constructor(props) {
@@ -54,7 +55,7 @@ export default class Login extends Component {
         var tempo = '';
 
         items.forEach(element => {
-            tempo = tempo + `R$ ${element.vlUnity} ${element.desName} (${element.qtProduct}) \n`
+            tempo = tempo + `${element.qtProduct} x ${convert(parseFloat(element.vlUnity))} ${element.desName} \n`
             console.log(element)
         })
 
@@ -64,7 +65,7 @@ export default class Login extends Component {
 
     _showObs(itemObs){
         if(itemObs !== ''){
-            return `Obs: ${itemObs}`
+            return `OBS: ${itemObs}`
         } else {
             return '';
         }
@@ -81,8 +82,8 @@ export default class Login extends Component {
                         renderItem={({ item }) =>
                             <View style={styles.items}>
                                 <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 0.5, backgroundColor: '#F8F8F8', padding: 5 }}>
-                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Pedido nº {item.idRequest}</Text>
-                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>Total: R$ {item.vlTotal}</Text>
+                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>PEDIDO Nº {item.idRequest}</Text>
+                                    <Text style={{ fontSize: 22, fontWeight: 'bold' }}>TOTAL: {convert(parseFloat(item.vlTotal))}</Text>
                                 </View>
                                 
                                 <View style={{ backgroundColor: "#fff", padding: 5 }}>
@@ -103,7 +104,7 @@ export default class Login extends Component {
 
                 </View>
                 <View style={styles.totalPrice}>
-                    <Text style={{ fontSize: 18, color: 'black' }}>Total R$ { parseFloat(this._totalValue()).toFixed(2) }</Text>
+                    <Text style={{ fontSize: 18, color: 'black' }}>TOTAL: {convert(this._totalValue())}</Text>
                 </View>
             </View>
             )
