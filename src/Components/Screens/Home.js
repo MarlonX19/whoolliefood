@@ -1,29 +1,9 @@
-import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Alert} from 'react-native';
+import React from 'react';
+import { StyleSheet, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-import axios from 'axios';
+const Home = () => {
 
-
-export default class Home extends Component {
-
-   /* componentWillMount() {
-        // requisicao http usando axios
-        axios.post('http://technicalassist.com.br/api/device/login', {
-            desLogin: 'ipad01',
-            desPassword: '1234'
-
-        })
-            .then(function (response) {
-                console.log(response.data.message);
-            })
-            .catch(function (response) {
-                console.log(response);
-            })
-
-    } */
-
-    render() {
         return(
             <View style={styles.container}>
                 <View>
@@ -52,8 +32,9 @@ export default class Home extends Component {
                 </View>
             </View>
         );
-    }
 }
+
+export default Home;
 
 const styles = StyleSheet.create({
     container: {
