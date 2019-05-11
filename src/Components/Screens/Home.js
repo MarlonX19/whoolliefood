@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, Alert} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
 import axios from 'axios';
@@ -45,9 +45,9 @@ export default class Home extends Component {
                         <Image style={styles.imgMenu} source={require('../imgs/cart.png')} />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => false}
+                        onPress={() => Alert.alert('O garçon foi chamado!')}
                     >
-                        <Image style={styles.imgMenu} source={require('../imgs/question.png')} />
+                        <Image style={styles.imgMenu} source={require('../imgs/bellIcon.png')} />
                     </TouchableOpacity>
                 </View>
             </View>

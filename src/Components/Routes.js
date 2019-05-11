@@ -18,7 +18,7 @@ export default props => (
             <Scene key='Home' type= "reset" component={Home} title="HOME" hideNavBar={true} />
             <Scene key='Login' direction='vertical' initial component={Login} title="FAZER LOGIN" hideNavBar={true} />
             <Scene key='Categories' direction='vertical' component={Categories} title="CATEGORIAS" hideNavBar={false} />
-            <Scene key='ClientInfo' type= "reset" direction='vertical' component={ClientInfo} title="ABRIR COMANDA" hideNavBar={false} />
+            <Scene key='ClientInfo' type= "reset" direction='vertical' component={ClientInfo} title="ABRIR COMANDA" hideNavBar={true} />
             <Scene key='Options' direction='vertical' component={Options} title="OPÇÕES" hideNavBar={false} />
             <Scene key='ProductDescription' direction='vertical' component={ProductDescription} title="DESCRIÇÃO" hideNavBar={false} />
             <Scene key='Cart' direction='vertical' component={Cart} title="CARRINHO" hideNavBar={false} />

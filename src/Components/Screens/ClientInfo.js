@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, ImageBackground, Alert, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -103,21 +103,19 @@ export default class Login extends Component {
 
     render() {
         return (
-            <ImageBackground
-                source={require('../imgs/bg.png')} style={{width: '100%', height: '100%'}}
-            >
+
             <View style={styles.container}>
+                <Image style={{ width: 100, height: 100, marginBottom: 30 }} source={require('../imgs/openOrder.png')} />
                 <TextInput
                     style={styles.textinput}
                     onChangeText={ text => this.setState({ name: text }) }
-                    placeholder={'Insira nome do cliente'}
+                    placeholder={'Insira seu nome'}
                     placeholderTextColor={'gray'}
                 />
 
                 {this._isButtonPressed()}
                
             </View>
-            </ImageBackground>
         )
     }
 }
@@ -127,7 +125,8 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: '#fff'
         
     },
 
@@ -137,8 +136,8 @@ const styles = StyleSheet.create({
         height: 50,
         width: 250,
         borderColor: 'gray',
-        borderWidth: 1,
-        backgroundColor: '#f2f2f2',
+        borderWidth: 0.5,
+        backgroundColor: '#fff',
         alignItems: 'center',
         fontSize: 22
     },
