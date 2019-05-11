@@ -71,6 +71,14 @@ export default class Login extends Component {
         }
     }
 
+    _requestStatus(status){
+        if(status == "1"){
+            return <Text style={{ color: 'green', marginLeft: 5 }}>Concluído</Text> 
+        } else {
+            return <Text style={{ color: '#9D6F1D', marginLeft: 5 }}>Em andamento</Text> 
+        }
+    }
+
     _hasRequests(){
         if(this.state.hasRequests){
             return (
@@ -91,9 +99,14 @@ export default class Login extends Component {
                                     <Text style={{ fontSize: 13, fontStyle: 'italic' }}>{this._showObs(item.desNote)}</Text>
                                 </View>
 
-                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center', backgroundColor: '#F8F8F8' }}>
-                                    <Image style={{ width: 15, height: 15 }} source={require('../imgs/clock.png')} />
-                                    <Text style={{ margin: 5 }}>{item.dtRegister.substring(0, 16)}</Text>
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#F8F8F8' }}>
+                                    <View>
+                                        {this._requestStatus(item.vlStatus)}
+                                    </View>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+                                        <Image style={{ width: 15, height: 15 }} source={require('../imgs/clock.png')} />
+                                        <Text style={{ margin: 5 }}>{item.dtRegister.substring(0, 16)}</Text>
+                                    </View>
                                 </View>
 
                             </View>
