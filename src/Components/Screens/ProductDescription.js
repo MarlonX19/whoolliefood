@@ -13,7 +13,8 @@ export default class Categories extends Component {
         this.state = { 
             productInfo: [],
             qtdProduct: 1,
-            isButtonPressed: false
+            isButtonPressed: false,
+            loadedScreen: false
 
             };
     }
@@ -50,7 +51,7 @@ export default class Categories extends Component {
                 response.data.forEach(element => {
                     temp.push(element)
                 });
-                self.setState({ productInfo: temp })
+                self.setState({ productInfo: temp, loadedScreen: true })
                 console.log(self.state.productInfo);
             })
             .catch(function (error) {
@@ -122,48 +123,63 @@ export default class Categories extends Component {
     }  */
 
 
+    _screenLoading() {
+        if(this.state.loadedScreen){
+            return (
+                <View style={{ flex: 1 }}>
+                    <View style={styles.child1}>
+                        {/* I needed to map the productInfo by its index and then point to the property I want */}
+                        <Image style={{ flexGrow: 1 }} source={{ uri: `${GLOBALS.BASE_URL}${this.state.productInfo.map(index => index.desImagePath)}` }} />
+                    </View>
+
+                    <View style={styles.child2}>
+                        {/* I needed to map the productInfo by its index and then point to the property I want */}
+                        <Text style={styles.title}>{this.state.productInfo.map(index => index.desName)}</Text>
+                        <Text style={styles.title}>{convert(parseFloat(this.state.productInfo.map(index => index.vlUnity)))}</Text>
+                    </View>
+
+                    <View style={styles.child3}>
+                        <Text style={styles.description}>{this.state.productInfo.map(index => index.desName)}</Text>
+
+                    </View>
+
+                    <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', marginTop: 3 }}>
+                        <TouchableWithoutFeedback
+                            onPress={() => this._countQuantity('minus')}
+                        >
+                            <Image style={{ width: 25, height: 25 }} source={require('../imgs/minus.png')} />
+                        </TouchableWithoutFeedback>
+                        <Text style={{ fontSize: 31, fontWeight: 'bold', marginLeft: 25, marginRight: 25, color: 'green' }}>{this.state.qtdProduct}</Text>
+                        <TouchableWithoutFeedback
+                            onPress={() => this._countQuantity('plus')}
+                        >
+                            <Image style={{ width: 25, height: 25 }} source={require('../imgs/plus.png')} />
+                        </TouchableWithoutFeedback>
+                    </View>
+
+                    <View style={styles.child4}>
+                        <View style={styles.addButton}>
+                            <View style={styles.price}>
+                                <Text style={styles.textPrice}>{convert(parseFloat(this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct))}</Text>
+                            </View>
+                            {this._isButtonPressed()}
+                        </View>
+                    </View>
+                </View>
+            )
+        } 
+        else {
+            return (
+                <ActivityIndicator size='large' />
+            )
+        }
+    }
+
 
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.child1}>
-                    {/* I needed to map the productInfo by its index and then point to the property I want */}
-                    <Image style={{ flexGrow: 1 }} source={{ uri: `${GLOBALS.BASE_URL}${this.state.productInfo.map(index => index.desImagePath)}` }} />
-                </View>
-
-                <View style={styles.child2}>
-                    {/* I needed to map the productInfo by its index and then point to the property I want */}
-                    <Text style={styles.title}>{this.state.productInfo.map(index => index.desName)}</Text>
-                    <Text style={styles.title}>{convert(parseFloat(this.state.productInfo.map(index => index.vlUnity)))}</Text>
-                </View>
-
-                <View style={styles.child3}>
-                    <Text style={styles.description}>{ this.state.productInfo.map(index => index.desName) }</Text>
-                    
-                </View>
-
-                <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', marginTop: 3 }}>
-                    <TouchableWithoutFeedback
-                        onPress={() => this._countQuantity('minus')}
-                    >
-                        <Image style={{ width: 25, height: 25 }} source={require('../imgs/minus.png')} />
-                    </TouchableWithoutFeedback>
-                        <Text style={{ fontSize: 31, fontWeight: 'bold', marginLeft: 25, marginRight: 25, color: 'green' }}>{this.state.qtdProduct}</Text>
-                    <TouchableWithoutFeedback
-                        onPress={() => this._countQuantity('plus')}
-                    >
-                        <Image style={{ width: 25, height: 25 }} source={require('../imgs/plus.png')} />
-                    </TouchableWithoutFeedback>
-                </View>
-
-                <View style={styles.child4}>
-                    <View style={styles.addButton}>
-                        <View style={styles.price}>
-                            <Text style={styles.textPrice}>{convert(parseFloat(this.state.productInfo.map(index => index.vlUnity) * this.state.qtdProduct))}</Text>
-                        </View>
-                        {this._isButtonPressed()}
-                    </View>
-                </View>
+               { this._screenLoading() }
             </View> 
         );
     }
