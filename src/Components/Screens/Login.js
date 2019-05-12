@@ -14,18 +14,22 @@ export default class Login extends Component {
             login: '',
             password: '',
             loading: false,
-            isButtonPressed: false
+            isButtonPressed: false,
+            loadedScreen: false
 
         }
+
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        var self = this;
         // requisição HTTP usando axios
         axios.get(`${GLOBALS.BASE_URL}/api/verify/login/device`)
             .then(function (response) {
-
                 if (response.data == true) {
                     Actions.ClientInfo();                    
+                } else {
+                    self.setState({ loadedScreen: true })
                 }
 
             })
@@ -48,16 +52,6 @@ export default class Login extends Component {
             .then(function (response) {
                 console.log(response.data.message);
                 if (response.data.login) {
-                /* axios.post('http://technicalassist.com.br/api/open/order', {
-                        desName: 'Marlon',
-                        idBoard: 1
-                    })
-                        .then(function (res) {
-                            console.log(res.data);
-                        })
-                        .catch(function (res) {
-                            console.log(res.response);
-                        }) */
                     self.setState({ isButtonPressed: false })
                     Actions.ClientInfo()
 
@@ -96,42 +90,59 @@ export default class Login extends Component {
 
 
 
+    _ScreenLoading(){
+        if(this.state.loadedScreen){
+            return(
+                <ImageBackground source={require('../imgs/loginScreen.jpg')} style={{width: '100%', height: '100%'}}>
+                <View style={styles.container}>
+                    <View style={styles.main}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', margin: 2, padding: 3 }}>
+                                <Image style={{ width: 25, height: 25 }} source={require('../imgs/loginIcon.png')} />
+                                <TextInput
+                                    style={styles.textinput}
+                                    onChangeText={text => this.setState({ login: text })}
+                                    placeholder={'Login'}
+                                    placeholderTextColor={'gray'}
+                                />
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', margin: 2, padding: 3 }}>
+                                <Image style={{ width: 25, height: 25 }} source={require('../imgs/passwordIcon.jpg')} />
+                                <TextInput
+                                    style={styles.textinput}
+                                    onChangeText={text => this.setState({ password: text })}
+                                    placeholder={'Senha'}
+                                    placeholderTextColor={'gray'}
+                                    secureTextEntry={true}
+                                />
+                            </View>
+                       { this._isButtonPressed() }
+                        
+                    </View>
+                    <View style={styles.bottom}>
+                        <TouchableOpacity
+                            onPress={() => false}
+                        >
+                            <Text style={styles.textbottom}>Termos de uso</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+                </ImageBackground>
+            ) 
+        }
+        else {
+            return (
+                <ActivityIndicator size='large' color='red' />
+            )
+        }
+    }
+
+
+
     render() {
         return (
-            <ImageBackground source={require('../imgs/loginScreen.jpg')} style={{width: '100%', height: '100%'}}>
-            <View style={styles.container}>
-                <View style={styles.main}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', margin: 2, padding: 3 }}>
-                            <Image style={{ width: 25, height: 25 }} source={require('../imgs/loginIcon.png')} />
-                            <TextInput
-                                style={styles.textinput}
-                                onChangeText={text => this.setState({ login: text })}
-                                placeholder={'Login'}
-                                placeholderTextColor={'gray'}
-                            />
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', margin: 2, padding: 3 }}>
-                            <Image style={{ width: 25, height: 25 }} source={require('../imgs/passwordIcon.jpg')} />
-                            <TextInput
-                                style={styles.textinput}
-                                onChangeText={text => this.setState({ password: text })}
-                                placeholder={'Senha'}
-                                placeholderTextColor={'gray'}
-                                secureTextEntry={true}
-                            />
-                        </View>
-                   { this._isButtonPressed() }
-                    
-                </View>
-                <View style={styles.bottom}>
-                    <TouchableOpacity
-                        onPress={() => false}
-                    >
-                        <Text style={styles.textbottom}>Termos de uso</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-            </ImageBackground>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+           { this._ScreenLoading() }
+           </View>
         )
     }
 }

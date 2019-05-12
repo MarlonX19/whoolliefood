@@ -19,22 +19,27 @@ export default class Login extends Component {
 
         this.state = {
             name: '',
-            isButtonPressed: false
+            isButtonPressed: false,
+            loadedScreen: false
 
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        var self = this;
         // requisição HTTP usando axios
-
         axios.post(`${GLOBALS.BASE_URL}/api/opened/order`)
             .then(function (res) {
-
                 console.log(res.data)
-                
                 if (res.data.open == true) {
                     Actions.Home();                    
+                } 
+                else {
+                    self.setState({ loadedScreen: true })
                 }
+            })
+            .catch(function (error) {
+                console.log(error);
             });
     }
 
@@ -99,22 +104,35 @@ export default class Login extends Component {
         }
     }
 
-
-
-    render() {
-        return (
-
-            <View style={styles.container}>
-                <Image style={{ width: 100, height: 100, marginBottom: 30 }} source={require('../imgs/openOrder.png')} />
+    _ScreenLoading(){
+        if(this.state.loadedScreen){
+            return(
+                <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
+                <Image style={{ width: 110, height: 110, marginBottom: 30 }} source={require('../imgs/openOrder.png')} />
                 <TextInput
                     style={styles.textinput}
                     onChangeText={ text => this.setState({ name: text }) }
                     placeholder={'Insira seu nome'}
                     placeholderTextColor={'gray'}
                 />
-
+                
                 {this._isButtonPressed()}
-               
+                </View>
+            )
+        } 
+        else {
+            return (
+                <ActivityIndicator size='large' color= 'red' />
+            )
+        }
+    }
+
+
+
+    render() {
+        return (
+            <View style={styles.container}>
+                { this._ScreenLoading() }
             </View>
         )
     }
