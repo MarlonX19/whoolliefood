@@ -170,7 +170,9 @@ export default class Categories extends Component {
         } 
         else {
             return (
-                <ActivityIndicator size='large' />
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator size='large' />
+                </View>
             )
         }
     }
