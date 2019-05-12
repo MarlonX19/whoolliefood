@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, ImageBackground, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import _ from 'lodash';
 import { Actions } from 'react-native-router-flux';
@@ -12,15 +12,13 @@ export default class Categories extends Component {
 
         this.state = { 
             desName: [],
-            desCategory: '',
-            dtRegister: ''
+            loadedScreen: false
 
             };
     }
 
     
     componentDidMount() {
-
         var self = this;
         axios.get(`${GLOBALS.BASE_URL}/api/categories/products`)
             .then(function (response) {
@@ -33,36 +31,47 @@ export default class Categories extends Component {
 
                 });
 
-                self.setState({ desName: temp })
+                self.setState({ desName: temp, loadedScreen: true })
             })
             .catch(function (response) {
                 console.log(response.data);
             })
     }
 
+    _loadingScreen(){
+        if(this.state.loadedScreen){
+            return (
+                <View style={{ flex: 1 }}>
+                    <FlatList
+                        data={this.state.desName}
+                        keyExtractor={(item, index) => item.desName}
+                        renderItem={({ item }) =>
+
+                            <TouchableOpacity
+                                onPress={() => Actions.Options({ idProductCategory: item.idProductCategory })}
+                            >
+                                <ImageBackground style={{ width: null, height: 120, marginTop: 2 }} source={{ uri: `${GLOBALS.BASE_URL}${item.desImagePath}` }}>
+                                    <Text style={styles.itemName}>{item.desName}</Text>
+                                </ImageBackground>
+
+                            </TouchableOpacity>}
+
+                    >
+                    </FlatList>
+                </View>
+            )
+        } else {
+            return (
+                <ActivityIndicator size= 'large' />
+            )
+        }
+    }
+
 
     render() {
         return (
             <View style={styles.container}>
-
-                <FlatList
-                    data={this.state.desName}
-                    keyExtractor={(item, index) => item.desName}
-                    renderItem={({ item }) =>
-
-                        <TouchableOpacity
-                            onPress={() => Actions.Options({ idProductCategory: item.idProductCategory }) }
-                        >
-                            <ImageBackground style={{ width: null, height: 120, marginTop: 2 }} source={{ uri: `${GLOBALS.BASE_URL}${item.desImagePath}` }}>
-                                <Text style={styles.itemName}>{item.desName}</Text>
-                            </ImageBackground>
-
-                        </TouchableOpacity>}
-
-
-                >
-
-                </FlatList>
+                { this._loadingScreen() }
             </View>
         );
     }
@@ -82,7 +91,4 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#fff'
     }
-
-    
-
 })

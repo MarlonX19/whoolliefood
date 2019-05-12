@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, Imag
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
+import { convert } from '../../Config/Functions';
 
 export default class Categories extends Component {
 
@@ -69,18 +70,20 @@ export default class Categories extends Component {
                     <FlatList
                         data={this.state.options}
                         keyExtractor={(item, index) => item.desName}
-                        numColumns={2}
+                        numColumns={1}
                         renderItem={({ item }) =>
                     
                             <TouchableOpacity
                                 onPress={() => Actions.ProductDescription({ idProduct: item.idProduct })}
                             >
-                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 15, borderColor: 'gray', borderWidth: 0.3, marginRight: 5, marginLeft: 5, borderRadius: 10 }}>
-                                    <View style={{ margin: 2 }}>
-                                    <Text style={styles.itemName}>{item.desName}</Text>
-                                    <ImageBackground style={{ width: 160, height: 160, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }} defaultSource={require('../imgs/foodIcon.png')} >
-                                    </ImageBackground>
+                                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 5, backgroundColor: '#E8EBE8' }}>
+                                    <View style={{ flexDirection: 'column' }}>
+                                        <Text style={styles.itemName}>{item.desName}</Text>
+                                        <Text style={styles.itemPrice}>{convert(parseFloat(item.vlUnity))}</Text>
                                     </View>
+                                    <Image style={{ width: 120, height: 120, margin: 8 }} source={{ uri: `http://technicalassist.com.br${item.desImagePath}` }} defaultSource={require('../imgs/foodIcon.png')} >
+                                    </Image>
+                                 
                                 </View>
                             </TouchableOpacity>}
                     >
@@ -115,16 +118,21 @@ const styles = StyleSheet.create({
     body: {
         flex: 9,
         flexDirection: 'column',
-        alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: 'transparent'
     },
 
     itemName: {
+        fontSize: 19,
+        fontWeight: 'bold',
+        color: 'black'
+    },
+
+    itemPrice: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: 'midnightblue',
-        alignSelf: 'center'
-    }
+        color: 'black',
+        marginTop: 20
+        }
 
 })
