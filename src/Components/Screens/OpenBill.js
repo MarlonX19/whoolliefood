@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, FlatList, Image, ImageBackground, Alert, ActivityIndicator, Button} from 'react-native';
 import axios from 'axios';
-import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
 import { convert, destroyAll } from '../../Config/Functions';
 

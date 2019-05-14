@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { ringBell } from '../../Config/Functions';
 
 const Home = () => {
     return (
@@ -24,7 +25,7 @@ const Home = () => {
                     <Image style={styles.imgMenu} source={require('../imgs/cart.png')} />
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => false} //Yet to be implemented
+                    onPress={() => ringBell()} //Yet to be implemented
                 >
                     <Image style={styles.imgMenu} source={require('../imgs/bellIcon.png')} />
                 </TouchableOpacity>

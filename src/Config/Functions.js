@@ -5,3 +5,8 @@ export const convert = (value) => {
 export const destroyAll = () => {
     alert('Destroi tudo e pede novo login...');
 }
+
+
+export const ringBell = () => {
+    alert('Implementar código de chamar garçon aqui');
+}
