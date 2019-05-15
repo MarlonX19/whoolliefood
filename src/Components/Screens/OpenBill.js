@@ -12,7 +12,8 @@ export default class Login extends Component {
             requests: [],
             isButtonPressed: false,
             color: 1,
-            hasRequests: false
+            hasRequests: false,
+            loadedScreen: false
 
         }
     }

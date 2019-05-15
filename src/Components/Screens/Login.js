@@ -141,7 +141,7 @@ export default class Login extends Component {
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-           { this._ScreenLoading() }
+            { this._ScreenLoading() }
            </View>
         )
     }

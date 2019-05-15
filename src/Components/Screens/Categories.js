@@ -50,7 +50,7 @@ export default class Categories extends Component {
                             <TouchableOpacity
                                 onPress={() => Actions.Options({ idProductCategory: item.idProductCategory })}
                             >
-                                <ImageBackground style={{ width: null, height: 120, marginTop: 2 }} source={{ uri: `${GLOBALS.BASE_URL}${item.desImagePath}` }}>
+                                <ImageBackground style={{ width: null, height: 120, marginTop: 2 }} source={{ uri: `${GLOBALS.BASE_URL}${item.desImagePath}` }} defaultSource={require('../imgs/foodIcon.png')} >
                                     <Text style={styles.itemName}>{item.desName}</Text>
                                 </ImageBackground>
 
