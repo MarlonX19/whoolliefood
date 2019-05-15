@@ -89,7 +89,7 @@ export default class Login extends Component {
     _isButtonPressed() {
         if(this.state.isButtonPressed) {
             return(
-                <ActivityIndicator size= 'large' color="#00ff00" />
+                <ActivityIndicator size= 'large' />
             )
         } else {
             return (

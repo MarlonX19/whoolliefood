@@ -71,7 +71,7 @@ export default class Login extends Component {
         if (this.state.isButtonPressed) {
             return (
 
-             <ActivityIndicator size='large' color="#00ff00" />
+             <ActivityIndicator size='large' />
 
             )
         } else {
@@ -131,7 +131,10 @@ export default class Login extends Component {
         }
         else {
             return (
+                <View>
+                <Image style={{ width: 65, height: 65, margin: 20 }} source={require('../imgs/logo.png')} />
                 <ActivityIndicator size='large' color='red' />
+                </View>
             )
         }
     }

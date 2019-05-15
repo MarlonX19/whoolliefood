@@ -14,11 +14,11 @@ export const destroyAll = () => {
 
 export const ringBell = () => {
     axios.post("http://technicalassist.com.br/api/order/ringbell")
-        .then(function (response) {
+        .then( response => {
             alert('O garçon foi acionado!')
 
         })
-        .catch(function (error) {
+        .catch( error => {
             // handle error
             alert('Erro');
         });

@@ -1,11 +1,14 @@
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ringBell } from '../../Config/Functions';
 
 const Home = () => {
     return (
         <View style={styles.container}>
+            <StatusBar
+                hidden
+            />
             <View>
                 <TouchableOpacity
                     onPress={() => Actions.Categories()}
