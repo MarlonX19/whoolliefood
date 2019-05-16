@@ -32,6 +32,19 @@ export default class Login extends Component {
             .then(function (res) {
                 console.log(res.data)
                 if (res.data.open == true) {
+                    
+                    var channel = pusher.subscribe(`${res.data.desChannel}`);
+                    channel.bind(`close-order-id-${res.data.id}`, function(data) {
+                        axios.post(`${GLOBALS.BASE_URL}/api/clear/order`)
+                        .then(function (response) {
+                            Actions.ClientInfo();
+                            console.log('order clearned');
+                        })
+                        .catch(function (response) {
+                            console.log('error clear order')
+                        })
+                    });
+                    
                     Actions.Home();                    
                 } 
                 else {
