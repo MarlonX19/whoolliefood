@@ -16,7 +16,8 @@ export default class Cart extends Component {
             desNote: '',
             isCartLoaded: false,
             isButtonPressed: false,
-            totalValue: 0
+            totalValue: 0,
+            noItems: false
 
         };
     }
@@ -33,7 +34,11 @@ export default class Cart extends Component {
                 temp.push(element)
             });
             self.setState({ cartOptions: temp })
-            if(temp.length > 0){ self.setState({ isCartLoaded: true, number: 0 }) }
+            if(temp.length > 0) { 
+                self.setState({ isCartLoaded: true, number: 0 })
+             } else {
+                 self.setState({ noItems: true })
+             }
             console.log(self.state.cartOptions)
 
         })
@@ -56,7 +61,7 @@ export default class Cart extends Component {
                 // handle success
                 self.setState({ isButtonPressed: false })
                 console.log(response.data);
-                self.setState({ cartOptions: [], isCartLoaded: false });
+                self.setState({ cartOptions: [], isCartLoaded: false, noItems: true });
                 Alert.alert(
                     'Pedido feito com sucesso!',
                     'Basta aguardar :)',
@@ -105,7 +110,7 @@ export default class Cart extends Component {
                 self.setState({ cartOptions: temp, isButtonPressed: false })
                 if (temp.length > 0) { 
                     self.setState({ isCartLoaded: true }) 
-                } else { self.setState({ isCartLoaded: false }) }
+                } else { self.setState({ isCartLoaded: false, noItems: true }) }
 
 
                 console.log(self.state.cartOptions)
@@ -178,10 +183,25 @@ export default class Cart extends Component {
         else {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Image style={{ width: 200, height: 200 }} source={require('../imgs/empty-cart.png')} />
-                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Nenhum item no carrinho atualmente!</Text>
+                    { this._noItems() }
                 </View>
             );
+        }
+    }
+
+    _noItems(){
+        if(this.state.noItems){
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Image style={{ width: 200, height: 200 }} source={require('../imgs/empty-cart.png')} />
+                <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Nenhum item no carrinho atualmente!</Text>
+                </View>
+            )
+        }
+        else {
+            return (
+                <ActivityIndicator size='large' />
+            )
         }
     }
 
