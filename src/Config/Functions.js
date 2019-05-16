@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Alert } from 'react-native';
 
 
 
@@ -15,7 +16,7 @@ export const destroyAll = () => {
 export const ringBell = () => {
     axios.post("http://technicalassist.com.br/api/order/ringbell")
         .then( response => {
-            alert('O garçon foi acionado!')
+            Alert.alert('O garçon foi acionado!')
 
         })
         .catch( error => {
