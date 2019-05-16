@@ -2,6 +2,16 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, StatusBar } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ringBell } from '../../Config/Functions';
+import axios from 'axios';
+import GLOBALS from '../../Config/Config';
+import Pusher from 'pusher-js/react-native';
+
+Pusher.logToConsole = true;
+
+var pusher = new Pusher('7a6218b4df87abcc1c7c', {
+    cluster: 'us2',
+    forceTLS: true
+});
 
 class Home extends Component {
 
@@ -42,10 +52,6 @@ class Home extends Component {
 
 export default Home;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> daeaedc8f35b8d504ee39b61cc0fb52fda8554cc
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#fff',
