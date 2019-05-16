@@ -2,16 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, StatusBar, Text } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { ringBell } from '../../Config/Functions';
-import axios from 'axios';
-import GLOBALS from '../../Config/Config';
-import Pusher from 'pusher-js/react-native';
-
-Pusher.logToConsole = true;
-
-var pusher = new Pusher('7a6218b4df87abcc1c7c', {
-    cluster: 'us2',
-    forceTLS: true
-});
 
 class Home extends Component {
 
