@@ -30,7 +30,7 @@ class Home extends Component {
                         <Image style={styles.imgMenu} source={require('../imgs/cart.png')} />
                     </TouchableOpacity>
                     <TouchableOpacity
-                        onPress={() => ringBell()} //Yet to be implemented
+                        onPress={() => ringBell()}
                     >
                         <Image style={styles.imgMenu} source={require('../imgs/bellIcon.png')} />
                     </TouchableOpacity>

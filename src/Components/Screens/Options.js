@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, ImageBackground, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Image, TouchableWithoutFeedback, ActivityIndicator, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -10,11 +10,12 @@ export default class Categories extends Component {
     constructor(props){ 
         super(props) 
 
-        this.state = { 
+        this.state = {
             options: [],
-            categoryId: 0
+            categoryId: 0,
+            loadedScreen: false
 
-            };
+        };
     }
 
     
@@ -45,7 +46,7 @@ export default class Categories extends Component {
                     
                 });
 
-                self.setState({ options: temp })
+                self.setState({ options: temp, loadedScreen: true })
              
             })
             .catch(function (response) {
@@ -54,10 +55,11 @@ export default class Categories extends Component {
             })
     }
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <TouchableWithoutFeedback 
+    _screenLoading(){
+        if(this.state.loadedScreen){
+            return (
+                <View style={{ flex: 1 }}>
+                      <TouchableWithoutFeedback 
                     onPress={() => Actions.Cart()}
                 >
                     <View style={styles.kart}>
@@ -87,9 +89,24 @@ export default class Categories extends Component {
                                 </View>
                             </TouchableOpacity>}
                     >
-
                     </FlatList>
                 </View>
+                </View>
+            )
+        }
+        else {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size='large' />
+                </View>
+            )
+        }
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+              { this._screenLoading() }
             </View>
         );
     }
