@@ -25,6 +25,22 @@ export default class Login extends Component {
         }
     }
 
+    _bindCloseOrder(desChannel, idOrder) {
+
+        var channel = pusher.subscribe(`${desChannel}`);
+        channel.bind(`close-order-id-${idOrder}`, function(data) {
+            axios.post(`${GLOBALS.BASE_URL}/api/clear/order`)
+            .then(function (response) {
+                Actions.ClientInfo();
+                console.log('order clearned');
+            })
+            .catch(function (response) {
+                console.log('error clear order')
+            })
+        });
+
+    }
+
     componentDidMount() {
         var self = this;
         // requisição HTTP usando axios
@@ -32,6 +48,9 @@ export default class Login extends Component {
             .then(function (res) {
                 console.log(res.data)
                 if (res.data.open == true) {
+
+                    self._bindCloseOrder(res.data.desChannel, res.data.id);
+                    
                     Actions.Home();                    
                 } 
                 else {
@@ -56,24 +75,14 @@ export default class Login extends Component {
                 .then(function (res) {
                     console.log(res.data);
 
-                    var channel = pusher.subscribe(`${res.data.desChannel}`);
-                    channel.bind(`close-order-id-${res.data.idOrder}`, function(data) {
-                        axios.post(`${GLOBALS.BASE_URL}/api/clear/order`)
-                        .then(function (response) {
-                            Actions.ClientInfo();
-                            console.log('order clearned');
-                        })
-                        .catch(function (response) {
-                            console.log('error clear order')
-                        })
-                    });
+                    self._bindCloseOrder(res.data.desChannel, res.data.idOrder);
 
                     self.setState({ name: '', isButtonPressed: false })
                     Actions.Home();
 
                 })
                 .catch(function (res) {
-                    console.log(res.response);
+                    console.log(res);
                     self.setState({ isButtonPressed: false })
                     alert('erro')
                 })
