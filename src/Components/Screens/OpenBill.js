@@ -12,8 +12,8 @@ export default class Login extends Component {
             requests: [],
             isButtonPressed: false,
             color: 1,
-            hasRequests: false,
-            loadedScreen: false
+            noRequests: false,
+            loadedRequests: false
 
         }
     }
@@ -31,8 +31,11 @@ export default class Login extends Component {
                });
                 console.log(temp);
                 if(temp.length >= 1) {
-                    self.setState({ requests: temp, hasRequests: true })
+                    self.setState({ requests: temp, noRequests: false, loadedRequests: true })
                 } 
+                else {
+                    self.setState({ noRequests: true })
+                }
 
             })
             .catch(function (error) {
@@ -79,8 +82,10 @@ export default class Login extends Component {
         }
     }
 
-    _hasRequests(){
-        if(this.state.hasRequests){
+
+
+    _loadedRequests() {
+        if(this.state.loadedRequests){
             return (
                 <View style={{ flex: 1 }}>
                 <View style={styles.orderedItems}>
@@ -127,11 +132,29 @@ export default class Login extends Component {
                 </View>
             </View>
             )
-        } else {
+        }
+         else {
+             return (
+                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                     { this._checkActivity() }
+                 </View>
+             )
+         }
+    }
+
+
+    _checkActivity(){
+        if(this.state.noRequests){
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <Image style={{ width: 150, height: 150 }} source={require('../imgs/hasRequests.png')} />
                     <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Você não fez nenhum pedido ainda!</Text>
+                </View>
+            )
+        } else {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <ActivityIndicator size="large" />
                 </View>
             )
         }
@@ -141,7 +164,7 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {this._hasRequests()}
+                { this._loadedRequests() }
             </View>
         )
     }

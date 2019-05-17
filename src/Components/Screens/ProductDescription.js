@@ -115,7 +115,7 @@ export default class Categories extends Component {
             console.log('diferente de falseeeee')
             console.log(this.state.productInfo)
 
-            var temp = '';
+            var temp = 'Ingredientes:\n';
             this.state.productInfo[0].listIngredients.forEach(element => {
                 temp = temp  + `${element.desName} \n`
             })
@@ -147,7 +147,6 @@ export default class Categories extends Component {
 
                     <View style={styles.child3}>
                         <Text style={styles.description}>{ this._checksIngredients() }</Text>
-
                     </View>
 
                     <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', marginTop: 3 }}>
