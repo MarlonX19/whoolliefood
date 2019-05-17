@@ -25,7 +25,7 @@ export default class Categories extends Component {
                 console.log(response.data);
                 var temp = [];
                 response.data.forEach(element => {
-                    if( element.isActive == "1") {
+                    if (element.isActive == "1") {
                         temp.push(element)
                     }
 
@@ -38,8 +38,9 @@ export default class Categories extends Component {
             })
     }
 
-    _loadingScreen(){
-        if(this.state.loadedScreen){
+
+    _loadingScreen() {
+        if (this.state.loadedScreen) {
             return (
                 <View style={{ flex: 1 }}>
                     <FlatList
@@ -54,8 +55,8 @@ export default class Categories extends Component {
                                     <Text style={styles.itemName}>{item.desName}</Text>
                                 </ImageBackground>
 
-                            </TouchableOpacity>}
-
+                            </TouchableOpacity>
+                            }
                     >
                     </FlatList>
                 </View>
@@ -63,7 +64,7 @@ export default class Categories extends Component {
         } else {
             return (
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <ActivityIndicator size= 'large' />
+                    <ActivityIndicator size='large' />
                 </View>
             )
         }
@@ -73,7 +74,7 @@ export default class Categories extends Component {
     render() {
         return (
             <View style={styles.container}>
-                { this._loadingScreen() }
+                {this._loadingScreen()}
             </View>
         );
     }
@@ -88,7 +89,6 @@ const styles = StyleSheet.create({
 
     itemName: {
         marginTop: 70,
-       
         fontSize: 30,
         fontWeight: 'bold',
         color: '#fff'

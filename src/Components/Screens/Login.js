@@ -6,7 +6,6 @@ import GLOBALS from '../../Config/Config';
 
 
 export default class Login extends Component {
-
     constructor(props) {
         super(props)
 
@@ -16,9 +15,7 @@ export default class Login extends Component {
             loading: false,
             isButtonPressed: false,
             loadedScreen: false
-
         }
-
     }
 
     componentDidMount() {
@@ -40,7 +37,7 @@ export default class Login extends Component {
 
 
 
-    _login(login, password) {
+    _login = (login, password) => {
         var self = this;
         this.setState({ isButtonPressed: true })
         // requisicao http usando axios
@@ -55,7 +52,7 @@ export default class Login extends Component {
                     self.setState({ isButtonPressed: false })
                     Actions.ClientInfo()
 
-                } else { 
+                } else {
                     self.setState({ isButtonPressed: false })
                     Alert.alert('Usuário ou senha incorretos!')
                 }
@@ -64,15 +61,14 @@ export default class Login extends Component {
                 self.setState({ isButtonPressed: false })
                 console.log(response);
             })
-
     }
+
+
 
     _isButtonPressed() {
         if (this.state.isButtonPressed) {
             return (
-
-             <ActivityIndicator size='large' />
-
+                <ActivityIndicator size='large' />
             )
         } else {
             return (
@@ -81,7 +77,6 @@ export default class Login extends Component {
                 >
                     <View style={{ width: 285, height: 50, alignItems: 'center', justifyContent: 'center', backgroundColor: 'green', marginTop: 2 }}>
                         <Text style={styles.button}>Entrar</Text>
-
                     </View>
                 </TouchableOpacity>
             )
@@ -90,12 +85,12 @@ export default class Login extends Component {
 
 
 
-    _ScreenLoading(){
-        if(this.state.loadedScreen){
-            return(
-                <ImageBackground source={require('../imgs/loginScreen.jpg')} style={{width: '100%', height: '100%'}}>
-                <View style={styles.container}>
-                    <View style={styles.main}>
+    _ScreenLoading() {
+        if (this.state.loadedScreen) {
+            return (
+                <ImageBackground source={require('../imgs/loginScreen.jpg')} style={{ width: '100%', height: '100%' }}>
+                    <View style={styles.container}>
+                        <View style={styles.main}>
                             <View style={{ flexDirection: 'row', alignItems: 'center', backgroundColor: '#f2f2f2', margin: 2, padding: 3 }}>
                                 <Image style={{ width: 25, height: 25 }} source={require('../imgs/loginIcon.png')} />
                                 <TextInput
@@ -115,25 +110,26 @@ export default class Login extends Component {
                                     secureTextEntry={true}
                                 />
                             </View>
-                       { this._isButtonPressed() }
-                        
+
+                            {this._isButtonPressed()}
+
+                        </View>
+                        <View style={styles.bottom}>
+                            <TouchableOpacity
+                                onPress={() => false}
+                            >
+                                <Text style={styles.textbottom}>Termos de uso</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={styles.bottom}>
-                        <TouchableOpacity
-                            onPress={() => false}
-                        >
-                            <Text style={styles.textbottom}>Termos de uso</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
                 </ImageBackground>
-            ) 
+            )
         }
         else {
             return (
                 <View>
-                <Image style={{ width: 65, height: 65, margin: 20 }} source={require('../imgs/logo.png')} />
-                <ActivityIndicator size='large' color='red' />
+                    <Image style={{ width: 65, height: 65, margin: 20 }} source={require('../imgs/logo.png')} />
+                    <ActivityIndicator size='large' color='red' />
                 </View>
             )
         }
@@ -143,9 +139,9 @@ export default class Login extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-            { this._ScreenLoading() }
-           </View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                {this._ScreenLoading()}
+            </View>
         )
     }
 }
@@ -153,7 +149,7 @@ export default class Login extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
-        
+
     },
 
     textinput: {

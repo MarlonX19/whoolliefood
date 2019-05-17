@@ -7,8 +7,8 @@ import { convert } from '../../Config/Functions';
 
 export default class Categories extends Component {
 
-    constructor(props){ 
-        super(props) 
+    constructor(props) {
+        super(props)
 
         this.state = {
             options: [],
@@ -19,12 +19,12 @@ export default class Categories extends Component {
     }
 
     
-   componentWillMount() {
+    componentWillMount() {
         this._loadOptions();
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.idProductCategory !== prevProps.idProductCategory){
+        if (this.props.idProductCategory !== prevProps.idProductCategory) {
             this._loadOptions();
         }
     } 
@@ -40,14 +40,14 @@ export default class Categories extends Component {
             .then(function (response) {
                 var temp = [];
                 response.data.forEach(element => {
-                    if(element.isActive == "1"){
+                    if (element.isActive == "1") {
                         temp.push(element)
                     }
-                    
+
                 });
 
                 self.setState({ options: temp, loadedScreen: true })
-             
+
             })
             .catch(function (response) {
                 console.log('erro aqui');
@@ -106,7 +106,7 @@ export default class Categories extends Component {
     render() {
         return (
             <View style={styles.container}>
-              { this._screenLoading() }
+                {this._screenLoading()}
             </View>
         );
     }
@@ -115,8 +115,8 @@ export default class Categories extends Component {
 
 const styles = StyleSheet.create({
     container: {
-       flex: 1,
-       marginTop: 50
+        flex: 1,
+        marginTop: 50
     },
 
     kart: {
@@ -150,6 +150,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
         marginTop: 20
-        }
-
+    }
 })

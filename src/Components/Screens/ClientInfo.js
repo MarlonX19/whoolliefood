@@ -25,21 +25,22 @@ export default class Login extends Component {
         }
     }
 
-    _bindCloseOrder(desChannel, idOrder) {
+    _bindCloseOrder = (desChannel, idOrder) => {
 
         var channel = pusher.subscribe(`${desChannel}`);
-        channel.bind(`close-order-id-${idOrder}`, function(data) {
+        channel.bind(`close-order-id-${idOrder}`, function (data) {
             axios.post(`${GLOBALS.BASE_URL}/api/clear/order`)
-            .then(function (response) {
-                Actions.ClientInfo();
-                console.log('order clearned');
-            })
-            .catch(function (response) {
-                console.log('error clear order')
-            })
+                .then(function (response) {
+                    Actions.ClientInfo();
+                    console.log('order clearned');
+                })
+                .catch(function (response) {
+                    console.log('error clear order')
+                })
         });
 
     }
+
 
     componentDidMount() {
         var self = this;
@@ -50,9 +51,9 @@ export default class Login extends Component {
                 if (res.data.open == true) {
 
                     self._bindCloseOrder(res.data.desChannel, res.data.id);
-                    
-                    Actions.Home();                    
-                } 
+
+                    Actions.Home();
+                }
                 else {
                     self.setState({ loadedScreen: true })
                 }
@@ -62,7 +63,9 @@ export default class Login extends Component {
             });
     }
 
-    _sendClientInfo(clientName) {
+
+
+    _sendClientInfo = (clientName) => {
         var self = this;
 
         this.setState({ isButtonPressed: true })
@@ -114,24 +117,23 @@ export default class Login extends Component {
     }
 
     _ScreenLoading(){
-        if(this.state.loadedScreen){
-            return(
-                <View style={{ flex:1, justifyContent: 'center', alignItems: 'center' }}>
-                <Image style={{ width: 110, height: 110, marginBottom: 30 }} source={require('../imgs/openOrder.png')} />
-                <TextInput
-                    style={styles.textinput}
-                    onChangeText={ text => this.setState({ name: text }) }
-                    placeholder={'Insira seu nome'}
-                    placeholderTextColor={'gray'}
-                />
-                
-                {this._isButtonPressed()}
+        if (this.state.loadedScreen) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Image style={{ width: 110, height: 110, marginBottom: 30 }} source={require('../imgs/openOrder.png')} />
+                    <TextInput
+                        style={styles.textinput}
+                        onChangeText={text => this.setState({ name: text })}
+                        placeholder={'Insira seu nome'}
+                        placeholderTextColor={'gray'}
+                    />
+                    {this._isButtonPressed()}
                 </View>
             )
-        } 
+        }
         else {
             return (
-                <ActivityIndicator size='large' color= 'red' />
+                <ActivityIndicator size='large' color='red' />
             )
         }
     }
@@ -141,11 +143,13 @@ export default class Login extends Component {
     render() {
         return (
             <View style={styles.container}>
-                { this._ScreenLoading() }
+                {this._ScreenLoading()}
             </View>
         )
     }
 }
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -154,7 +158,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff'
-        
+
     },
 
     textinput: {
