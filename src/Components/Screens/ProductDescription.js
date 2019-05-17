@@ -110,17 +110,24 @@ export default class Categories extends Component {
         }
     }
 
-/*   _checksIngredients() {
-        if( this.state.productInfo.listIngredients == false){
-            console.log('diferente de false')
+  _checksIngredients() {
+        if( this.state.productInfo[0].listIngredients.length > 0 ){
+            console.log('diferente de falseeeee')
             console.log(this.state.productInfo)
-           
-           
+
+            var temp = '';
+            this.state.productInfo[0].listIngredients.forEach(element => {
+                temp = temp  + `${element.desName} \n`
+            })
+            return temp;
+        
         } else {
-            console.log('igual a false')
+            console.log('igual a falseeeeeeee')
             console.log(this.state.productInfo)
+            var temp = 'No ingredients';
+            return temp;
         }
-    }  */
+    } 
 
 
     _screenLoading() {
@@ -139,7 +146,7 @@ export default class Categories extends Component {
                     </View>
 
                     <View style={styles.child3}>
-                        <Text style={styles.description}>{this.state.productInfo.map(index => index.desName)}</Text>
+                        <Text style={styles.description}>{ this._checksIngredients() }</Text>
 
                     </View>
 
@@ -230,7 +237,8 @@ const styles = StyleSheet.create({
     },
 
     description: {
-        fontSize: 21
+        fontSize: 18,
+        color: 'black'
     },
 
     addButton: {
