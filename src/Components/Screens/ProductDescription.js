@@ -117,16 +117,20 @@ export default class Categories extends Component {
             this.state.productInfo[0].listIngredients.forEach(element => {
                 temp = temp + `${element.desName} \n`
             })
-            return <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 18 }}>Ingredientes:</Text>
-                <Text>{temp}</Text>
-            </View>
+            return (
+                <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                    <Text style={{ alignSelf: 'center', fontSize: 18 }}>Ingredientes:</Text>
+                    <Text>{temp}</Text>
+                </View>
+            )
 
         } else {
-            return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{ fontWeight: 'bold' }}>Lista de Ingredientes não disponível para esse produto!</Text>
-                <Image style={{ width: 35, height: 35 }} source={require('../imgs/unavailableIcon.png')} />
-            </View>
+            return (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontWeight: 'bold' }}>Lista de Ingredientes não disponível para esse produto!</Text>
+                    <Image style={{ width: 35, height: 35 }} source={require('../imgs/unavailableIcon.png')} />
+                </View>
+            )
         }
     } 
 
