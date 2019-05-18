@@ -110,22 +110,23 @@ export default class Categories extends Component {
         }
     }
 
-  _checksIngredients() {
-        if( this.state.productInfo[0].listIngredients.length > 0 ){
-            console.log('diferente de falseeeee')
-            console.log(this.state.productInfo)
+    _checksIngredients() {
+        if (this.state.productInfo[0].listIngredients.length > 0) {
 
-            var temp = 'Ingredientes:\n';
+            var temp = '- ';
             this.state.productInfo[0].listIngredients.forEach(element => {
-                temp = temp  + `${element.desName} \n`
+                temp = temp + `${element.desName} \n`
             })
-            return temp;
-        
+            return <View style={{ flex: 1, justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                <Text style={{ alignSelf: 'center', fontSize: 18 }}>Ingredientes:</Text>
+                <Text>{temp}</Text>
+            </View>
+
         } else {
-            console.log('igual a falseeeeeeee')
-            console.log(this.state.productInfo)
-            var temp = 'No ingredients';
-            return temp;
+            return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ fontWeight: 'bold' }}>Lista de Ingredientes não disponível para esse produto!</Text>
+                <Image style={{ width: 35, height: 35 }} source={require('../imgs/unavailableIcon.png')} />
+            </View>
         }
     } 
 
@@ -146,7 +147,8 @@ export default class Categories extends Component {
                     </View>
 
                     <View style={styles.child3}>
-                        <Text style={styles.description}>{ this._checksIngredients() }</Text>
+                       
+                        <View style={{ flex: 1 }}>{ this._checksIngredients() }</View>
                     </View>
 
                     <View style={{ flex: 0.8, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff', marginTop: 3 }}>
@@ -231,13 +233,13 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 27,
+        fontSize: 22,
         fontWeight: 'bold'
     },
 
     description: {
-        fontSize: 18,
-        color: 'black'
+        fontSize: 15,
+        color: 'gray'
     },
 
     addButton: {
