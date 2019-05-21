@@ -153,7 +153,8 @@ export default class Login extends Component {
                         onRequestClose={() => {
                             Alert.alert('Modal has been closed.');
                         }}>
-                        <View style={{ marginTop: 250, marginLeft: 80, width: 230, height: null, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)', justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ width: 230, height: null, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'center' }}>
                             <View>
                                 <Image style={{ width: 50, height: 50, alignSelf: 'center', margin: 10 }} source={require('../imgs/sadIcon.png')}/>
                                 <Text style={{ fontSize: 16, fontWeight: 'bold', margin: 20 }}>Dados de login incorretos!</Text>                                
@@ -166,6 +167,7 @@ export default class Login extends Component {
                                     </View>
                                 </TouchableOpacity>
                             </View>
+                        </View>
                         </View>
                     </Modal>
 
