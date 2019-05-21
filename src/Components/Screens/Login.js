@@ -141,36 +141,42 @@ export default class Login extends Component {
         }
     }
 
+    _loadModal() {
+        return (
+            <Modal
+                animationType='none'
+                transparent={true}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                }}>
+                <View style={{ flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: null, height: 200, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'stretch' }}>
+                        <View style={{ flex: 3 }}>
+                            <Image style={{ width: 50, height: 50, alignSelf: 'center', margin: 10 }} source={require('../imgs/sadIcon.png')} />
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', margin: 20 }}>Dados de login incorretos!</Text>
+                        </View>
+                        <TouchableOpacity
+                            style={{ flex: 1 }}
+                            onPress={() => {
+                                this._setModalVisible(false);
+                            }}>
+                            <View style={{ flex: 1, padding: 15, backgroundColor: '#fff', alignItems: 'center', borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
+                                <Text>Tentar de novo</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+        )
+    }
+
 
 
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <Modal
-                        animationType='none'
-                        transparent={true}
-                        visible={this.state.modalVisible}
-                        onRequestClose={() => {
-                            Alert.alert('Modal has been closed.');
-                        }}>
-                        <View style={{ flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)', justifyContent: 'center', alignItems: 'center' }}>
-                        <View style={{ width: 230, height: null, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'center' }}>
-                            <View>
-                                <Image style={{ width: 50, height: 50, alignSelf: 'center', margin: 10 }} source={require('../imgs/sadIcon.png')}/>
-                                <Text style={{ fontSize: 16, fontWeight: 'bold', margin: 20 }}>Dados de login incorretos!</Text>                                
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        this._setModalVisible(false);
-                                    }}>
-                                    <View style={{ padding: 15,  backgroundColor: '#fff', alignItems: 'center', borderRadius: 10 }}>
-                                        <Text>Tentar de novo</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        </View>
-                    </Modal>
-
+                {this._loadModal()}
                 {this._ScreenLoading()}
             </View>
         )

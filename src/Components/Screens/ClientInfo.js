@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ImageBackground, Alert, ActivityIndicator } from 'react-native';
+import { Modal, StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -20,10 +20,17 @@ export default class Login extends Component {
         this.state = {
             name: '',
             isButtonPressed: false,
-            loadedScreen: false
+            loadedScreen: false,
+            modalVisible: false
 
         }
     }
+
+
+    _setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
+    }
+
 
     _bindCloseOrder = (desChannel, idOrder) => {
 
@@ -91,8 +98,7 @@ export default class Login extends Component {
                 })
 
         } else {
-            self.setState({ isButtonPressed: false })
-            Alert.alert('Insira um nome válido!')
+            self.setState({ isButtonPressed: false, modalVisible: true })
         }
 
     }
@@ -138,11 +144,41 @@ export default class Login extends Component {
         }
     }
 
+    _loadModal(){
+        return (
+            <Modal
+                animationType='none'
+                transparent={true}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                }}>
+                <View style={{ flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: null, height: 200, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'stretch' }}>
+                        <View style={{ flex: 3 }}>
+                            <Image style={{ width: 50, height: 50, alignSelf: 'center', margin: 10 }} source={require('../imgs/sadIcon.png')} />
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', margin: 20 }}>Nome inserido inválido!</Text>
+                        </View>
+                        <TouchableOpacity
+                            style={{ flex: 1 }}
+                            onPress={() => {
+                                this._setModalVisible(false);
+                            }}>
+                            <View style={{ flex: 1, padding: 15, backgroundColor: '#fff', alignItems: 'center', borderBottomRightRadius: 10, borderBottomLeftRadius: 10 }}>
+                                <Text>Tentar novamente</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+        )
+    }
 
 
     render() {
         return (
             <View style={styles.container}>
+                {this._loadModal()}
                 {this._ScreenLoading()}
             </View>
         )
