@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ImageBackground, Alert, ActivityIndicator } from 'react-native';
+import { Modal, StyleSheet, TouchableHighlight, Text, View, TextInput, TouchableOpacity, Image, ImageBackground, Alert, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import { Actions} from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -14,8 +14,13 @@ export default class Login extends Component {
             password: '',
             loading: false,
             isButtonPressed: false,
-            loadedScreen: false
+            loadedScreen: false,
+            modalVisible: false
         }
+    }
+
+    _setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
     }
 
     componentDidMount() {
@@ -54,7 +59,8 @@ export default class Login extends Component {
 
                 } else {
                     self.setState({ isButtonPressed: false })
-                    Alert.alert('Usuário ou senha incorretos!')
+                   // Alert.alert('Usuário ou senha incorretos!')
+                   self.setState({ modalVisible: true })
                 }
             })
             .catch(function (response) {
@@ -140,6 +146,29 @@ export default class Login extends Component {
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <Modal
+                        animationType='none'
+                        transparent={true}
+                        visible={this.state.modalVisible}
+                        onRequestClose={() => {
+                            Alert.alert('Modal has been closed.');
+                        }}>
+                        <View style={{ marginTop: 250, marginLeft: 80, width: 230, height: null, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'center' }}>
+                            <View>
+                                <Image style={{ width: 50, height: 50, alignSelf: 'center', margin: 10 }} source={require('../imgs/sadIcon.png')}/>
+                                <Text style={{ fontSize: 16, fontWeight: 'bold', margin: 20 }}>Dados de login incorretos!</Text>                                
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        this._setModalVisible(false);
+                                    }}>
+                                    <View style={{ padding: 15,  backgroundColor: '#fff', alignItems: 'center', borderRadius: 10 }}>
+                                        <Text>Tentar de novo</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </Modal>
+
                 {this._ScreenLoading()}
             </View>
         )
