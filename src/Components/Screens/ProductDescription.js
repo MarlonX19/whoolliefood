@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, Text, StyleSheet, ActivityIndicator, Image, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native';
+import { Modal, View, Text, StyleSheet, ActivityIndicator, Image, TouchableWithoutFeedback, Alert, TouchableOpacity } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import GLOBALS from '../../Config/Config';
@@ -14,9 +14,15 @@ export default class Categories extends Component {
             productInfo: [],
             qtdProduct: 1,
             isButtonPressed: false,
-            loadedScreen: false
+            loadedScreen: false,
+            modalVisible: false
 
             };
+    }
+
+
+    _setModalVisible(visible) {
+        this.setState({ modalVisible: visible });
     }
 
     
@@ -73,16 +79,16 @@ export default class Categories extends Component {
         })
           .then(function (response) {
             console.log(response.data)
-            self.setState({ isButtonPressed: false })
-            Alert.alert(
+            self.setState({ isButtonPressed: false, modalVisible: true })
+           /* Alert.alert(
                 'Item adicionado ao carrinho!',
                 'Para concluir o pedido vá até o carrinho :) ',
                 [
                   {text: 'Ir ao carrinho!', onPress: () => Actions.Cart()},
                   {text: 'Incluir mais itens!', onPress: () => Actions.Categories()}
                 ],
-                { cancelable: true }
-              )
+                { cancelable: true } 
+              ) */
           })
           .catch(function (error) {
             console.log(error);
@@ -190,9 +196,55 @@ export default class Categories extends Component {
     }
 
 
+    _loadModal(){
+        return (
+            <Modal
+                animationType='none'
+                transparent={true}
+                visible={this.state.modalVisible}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                }}>
+                <View style={{ flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: null, height: 200, borderRadius: 10, backgroundColor: '#3cb371', justifyContent: 'center', alignItems: 'stretch' }}>
+                        <View style={{ flex: 3, alignItems: 'center' }}>
+                            <Image style={{ width: 50, height: 50, alignSelf: 'center', margin: 10 }} source={require('../imgs/smileIcon.png')} />
+                            <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 5, color: 'white' }}>Item adicionado ao carrinho!</Text>
+                            <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 5, color: 'white' }}>Para concluir o pedido vá até o carrinho</Text>
+                        </View>
+
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', marginTop: 10}}>
+                        <TouchableOpacity
+                            style={{ flex: 1 }}
+                            onPress={() => {
+                                this._setModalVisible(false);
+                            }}>
+                            <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomLeftRadius: 10 }}>
+                                <Text>Ir ao carrinho</Text>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={{ flex: 1 }}
+                            onPress={() => {
+                                this._setModalVisible(false);
+                            }}>
+                            <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomRightRadius: 10 }}>
+                                <Text>Incluir mais itens</Text>
+                            </View>
+                        </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+        )
+    }
+
+
     render() {
         return (
             <View style={styles.container}>
+               { this._loadModal() }
                { this._screenLoading() }
             </View> 
         );
