@@ -213,26 +213,28 @@ export default class Categories extends Component {
                             <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 5, color: 'white' }}>Para concluir o pedido vá até o carrinho</Text>
                         </View>
 
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', marginTop: 10}}>
-                        <TouchableOpacity
-                            style={{ flex: 1 }}
-                            onPress={() => {
-                                this._setModalVisible(false);
-                            }}>
-                            <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomLeftRadius: 10 }}>
-                                <Text>Ir ao carrinho</Text>
-                            </View>
-                        </TouchableOpacity>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', marginTop: 10 }}>
+                            <TouchableOpacity
+                                style={{ flex: 1 }}
+                                onPress={() => {
+                                    this._setModalVisible(false)
+                                    Actions.Cart();
+                                }}>
+                                <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomLeftRadius: 10 }}>
+                                    <Text>Ir ao carrinho</Text>
+                                </View>
+                            </TouchableOpacity>
 
-                        <TouchableOpacity
-                            style={{ flex: 1 }}
-                            onPress={() => {
-                                this._setModalVisible(false);
-                            }}>
-                            <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomRightRadius: 10 }}>
-                                <Text>Incluir mais itens</Text>
-                            </View>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{ flex: 1 }}
+                                onPress={() => {
+                                    this._setModalVisible(false)
+                                    Actions.Categories();
+                                }}>
+                                <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomRightRadius: 10 }}>
+                                    <Text>Incluir mais itens</Text>
+                                </View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>

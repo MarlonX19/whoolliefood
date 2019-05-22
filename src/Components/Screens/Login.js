@@ -151,10 +151,10 @@ export default class Login extends Component {
                     Alert.alert('Modal has been closed.');
                 }}>
                 <View style={{ flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)', justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ width: null, height: 200, borderRadius: 10, backgroundColor: 'yellow', justifyContent: 'center', alignItems: 'stretch' }}>
+                    <View style={{ width: null, height: 200, borderRadius: 10, backgroundColor: '#ff4500', justifyContent: 'center', alignItems: 'stretch' }}>
                         <View style={{ flex: 3 }}>
                             <Image style={{ width: 50, height: 50, alignSelf: 'center', margin: 10 }} source={require('../imgs/sadIcon.png')} />
-                            <Text style={{ fontSize: 16, fontWeight: 'bold', margin: 20 }}>Dados de login incorretos!</Text>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold', margin: 20, color: '#fff' }}>Dados de login incorretos!</Text>
                         </View>
                         <TouchableOpacity
                             style={{ flex: 1 }}

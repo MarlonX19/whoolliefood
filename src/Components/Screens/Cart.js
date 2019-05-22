@@ -17,9 +17,16 @@ export default class Cart extends Component {
             isCartLoaded: false,
             isButtonPressed: false,
             totalValue: 0,
-            noItems: false
+            noItems: false,
+            succesModalVisible: false,
+            emptyCartModalVisible: false
 
         };
+    }
+
+
+    _setModalVisible(visible) {
+        this.setState({ succesModalVisible: visible, emptyCartModalVisible: visible });
     }
 
 
@@ -61,15 +68,15 @@ export default class Cart extends Component {
                 // handle success
                 self.setState({ isButtonPressed: false })
                 console.log(response.data);
-                self.setState({ cartOptions: [], isCartLoaded: false, noItems: true });
-                Alert.alert(
+                self.setState({ cartOptions: [], isCartLoaded: false, noItems: true, succesModalVisible: true });
+              /*  Alert.alert(
                     'Pedido feito com sucesso!',
                     'Basta aguardar :)',
                     [
                         { text: 'Ok', onPress: () => Actions.Home() }
                     ],
                     { cancelable: false }
-                )
+                ) */
 
             })
             .catch(function (error) {
@@ -78,8 +85,8 @@ export default class Cart extends Component {
             });
 
         } else {
-            self.setState({ isButtonPressed: false })
-            Alert.alert(
+            self.setState({ isButtonPressed: false, emptyCartModalVisible: true })
+           /* Alert.alert(
                 'Carrinho vazio!',
                 'Para fazer um pedido veja o menu de opções :)',
                 [
@@ -87,7 +94,7 @@ export default class Cart extends Component {
                     {text: 'Voltar ao menu principal', onPress: () => Actions.Home()}
                 ],
                 { cancelable: true}
-            )
+            ) */
         }
     }
 
@@ -111,18 +118,13 @@ export default class Cart extends Component {
                 if (temp.length > 0) { 
                     self.setState({ isCartLoaded: true }) 
                 } else { self.setState({ isCartLoaded: false, noItems: true }) }
-
-
                 console.log(self.state.cartOptions)
-                
-    
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
             });
             
-
         })
         .catch(function (error) {
             // handle error
@@ -239,9 +241,93 @@ export default class Cart extends Component {
         }
     }
 
+    _loadModal(){
+        if(this.state.succesModalVisible){
+            return (
+                <Modal
+                    animationType='none'
+                    transparent={true}
+                    visible={this.state.succesModalVisible}
+                    onRequestClose={() => {
+                        Alert.alert('Modal has been closed.');
+                    }}>
+                    <View style={{ flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)', justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ width: null, height: 200, borderRadius: 10, backgroundColor: '#3cb371', justifyContent: 'center', alignItems: 'stretch' }}>
+                            <View style={{ flex: 3, alignItems: 'center' }}>
+                                <Image style={{ width: 60, height: 60, alignSelf: 'center', margin: 10 }} source={require('../imgs/thumbsUpIcon.png')} />
+                                <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 5, color: 'white' }}>Pedido feito com sucesso!</Text>
+                                <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 5, color: 'white' }}>Basta aguardar</Text>
+                            </View>
+    
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', marginTop: 10 }}>
+                                <TouchableOpacity
+                                    style={{ flex: 1 }}
+                                    onPress={() => {
+                                        this._setModalVisible(false)
+                                        Actions.Home();
+                                    }}>
+                                    <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}>
+                                        <Text>Ok</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+            )
+        } 
+
+        if(this.state.emptyCartModalVisible){
+            return (
+                <Modal
+                animationType='none'
+                transparent={true}
+                visible={this.state.emptyCartModalVisible}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                }}>
+                <View style={{ flex: 1, backgroundColor: 'rgba(52, 52, 52, 0.8)', justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: null, height: 200, borderRadius: 10, backgroundColor: 'gold', justifyContent: 'center', alignItems: 'stretch' }}>
+                        <View style={{ flex: 3, alignItems: 'center' }}>
+                            <Image style={{ width: 50, height: 50, alignSelf: 'center', margin: 10 }} source={require('../imgs/neutralIcon.png')} />
+                            <Text style={{ fontSize: 18, fontWeight: 'bold', margin: 5, color: 'white' }}>O carrinho está vazio!</Text>
+                            <Text style={{ fontSize: 14, fontWeight: 'bold', margin: 5, color: 'white' }}>Adicione itens ao carrinho antes</Text>
+                        </View>
+
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'flex-end', marginTop: 10 }}>
+                            <TouchableOpacity
+                                style={{ flex: 1 }}
+                                onPress={() => {
+                                    this._setModalVisible(false)
+                                    Actions.Categories();
+                                }}>
+                                <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomLeftRadius: 10 }}>
+                                    <Text>Ver opções</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={{ flex: 1 }}
+                                onPress={() => {
+                                    this._setModalVisible(false)
+                                    Actions.Home();
+                                }}>
+                                <View style={{ paddingBottom: 12, paddingTop: 12, backgroundColor: '#fff', alignItems: 'center', borderBottomRightRadius: 10 }}>
+                                    <Text>Voltar ao menu</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            )
+        }
+
+    }
+
     render() {
         return(
             <View style={styles.container}>
+                {this._loadModal()}
                 <View style={styles.child2}>
                     {this._isCartLoaded()}
                 </View>
