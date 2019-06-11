@@ -122,7 +122,7 @@ export default class Login extends Component {
 
                 </View>
                 <View style={styles.totalPrice}>
-                    <Text style={{ fontSize: 18, color: 'black' }}>TOTAL: {convert(this._totalValue())}</Text>
+                    <Text style={{ fontSize: 18, color: 'red', fontWeight: 'bold' }}>TOTAL: {convert(this._totalValue())}</Text>
                 </View>
             </View>
             )
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         margin: 5,
         padding: 0,
-        borderWidth: 0.3,
+        borderWidth: 0.5,
         borderRadius: 5
     },
 
